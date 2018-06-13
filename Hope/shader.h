@@ -24,6 +24,8 @@ public:
 
 	bool loadShaderSource(const std::string &filename);
 
+	unsigned int getShader() { return shaderAddress; }
+
 	~shader();
 };
 #endif
