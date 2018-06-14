@@ -27,6 +27,8 @@ public:
 
 	// check if the name is same with the shader's name
 	bool matchName(std::string name) { return name == shaderName; }
+
+	unsigned int getID() { return programID; }
 };
 #endif
 
