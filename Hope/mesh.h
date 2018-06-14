@@ -5,6 +5,7 @@
 #include "GLFW\glfw3.h"
 #include "shaderProgram.h"
 #include "LogManager.h"
+#include "meshDummy.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -26,7 +27,7 @@ struct Texture
 	std::string type;
 };
 
-class mesh
+class mesh : private meshDummy
 {
 private:
 	// Mesh Data

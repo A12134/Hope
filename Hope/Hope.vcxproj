@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClCompile Include="..\glad.c" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="LODmesh.cpp" />
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mesh.cpp" />
@@ -143,8 +144,10 @@
   <ItemGroup>
     <ClInclude Include="ColorTable.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="LODmesh.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="mesh.h" />
+    <ClInclude Include="meshDummy.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shaderManager.h" />
     <ClInclude Include="shaderProgram.h" />
