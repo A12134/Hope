@@ -23,7 +23,7 @@ class gameObject
 private:
 	LogManager * engineLog;
 
-private:
+protected:
 	transformation transform;
 	shaderProgram* sp;
 	LODmesh* meshes;
