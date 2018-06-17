@@ -142,6 +142,7 @@
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shaderManager.cpp" />
     <ClCompile Include="shaderProgram.cpp" />
+    <ClCompile Include="texture.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +158,7 @@
     <ClInclude Include="shader.h" />
     <ClInclude Include="shaderManager.h" />
     <ClInclude Include="shaderProgram.h" />
+    <ClInclude Include="texture.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
