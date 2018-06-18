@@ -26,7 +26,7 @@ void textureManager::createNewMaterial(std::string name)
 	Mats.push_back(newMaterial);
 }
 
-void textureManager::addTexture(std::string materialName, const char * texturePath, std::string textureType, TEX_PARA warpMethod, TEX_PARA filterMethod)
+void textureManager::addTexture(std::string materialName, const char * texturePath, E_TEXTURE_TYPE textureType, TEX_PARA warpMethod, TEX_PARA filterMethod)
 {
 	Material* mat = findMaterial(materialName);
 	if (!mat) 
@@ -34,18 +34,12 @@ void textureManager::addTexture(std::string materialName, const char * texturePa
 		engineLog->writeLog("Error: material " + materialName + " does not exist!\n");
 		engineLog->errorExit();
 	}
-	
-	if (textureExist(mat, textureType)) 
-	{
-		engineLog->writeLog("Error: material " + materialName + " already has texture " + textureType + "\n");
-		engineLog->errorExit();
-	}
 
 	texture* newTex = new texture(texturePath, warpMethod, filterMethod, engineLog);
 
 	Texture newTexture;
 	newTexture.id = newTex->getTexture();
-	newTexture.type = textureType;
+	newTexture.type = generateTexName(mat, textureType);
 
 	delete newTex;
 	newTex = nullptr;
@@ -54,7 +48,7 @@ void textureManager::addTexture(std::string materialName, const char * texturePa
 	
 }
 
-void textureManager::addTexture(std::string materialName, const char * texturePath, std::string textureType, TEX_PARA warpMethod_s, TEX_PARA warpMethod_t, TEX_PARA filterMethod_min, TEX_PARA filterMethod_mag)
+void textureManager::addTexture(std::string materialName, const char * texturePath, E_TEXTURE_TYPE textureType, TEX_PARA warpMethod_s, TEX_PARA warpMethod_t, TEX_PARA filterMethod_min, TEX_PARA filterMethod_mag)
 {
 	Material* mat = findMaterial(materialName);
 	if (!mat)
@@ -63,17 +57,11 @@ void textureManager::addTexture(std::string materialName, const char * texturePa
 		engineLog->errorExit();
 	}
 
-	if (textureExist(mat, textureType))
-	{
-		engineLog->writeLog("Error: material " + materialName + " already has texture " + textureType + "\n");
-		engineLog->errorExit();
-	}
-
 	texture* newTex = new texture(texturePath, warpMethod_s, warpMethod_t, filterMethod_min, filterMethod_mag, engineLog);
 
 	Texture newTexture;
 	newTexture.id = newTex->getTexture();
-	newTexture.type = textureType;
+	newTexture.type = generateTexName(mat, textureType);
 
 	delete newTex;
 	newTex = nullptr;
@@ -93,16 +81,32 @@ Material * textureManager::findMaterial(std::string materialName)
 	return nullptr;
 }
 
-bool textureManager::textureExist(Material * mat, std::string textureType)
+std::string textureManager::generateTexName(Material * mat, E_TEXTURE_TYPE type)
 {
-	for (unsigned int i = 0; i < mat->textureSet.size(); i++)
+	std::string TexName;
+
+	switch (type)
 	{
-		if (mat->textureSet.at(i).type == textureType) 
-		{
-			return true;
-		}
+	case E_TEXTURE_TYPE::DIFFUSE_MAP:
+		TexName = "Diffuse_" + std::to_string(mat->diffuseNum++);
+		break;
+	case E_TEXTURE_TYPE::OPACITY_MAP:
+		TexName += "Opacity_" + std::to_string(mat->opacityNum++);
+		break;
+	case E_TEXTURE_TYPE::BUMP_MAP:
+		TexName += "Bump_" + std::to_string(mat->bumpNum++);
+		break;
+	case E_TEXTURE_TYPE::NORMAL_MAP:
+		TexName += "Normal_" + std::to_string(mat->normalNum++);
+		break;
+	case E_TEXTURE_TYPE::SPECULAR_MAP:
+		TexName += "Specular_" + std::to_string(mat->specularNum++);
+		break;
+	default:
+		break;
 	}
-	return false;
+	return TexName;
 }
+
 
 
