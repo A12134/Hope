@@ -12,6 +12,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+#include "textureManager.h"
 
 using namespace glm;
 using namespace std;
@@ -23,26 +24,20 @@ struct Vertex
 	vec2 TexCoords;
 };
 
-struct Texture 
-{
-	unsigned int id;
-	std::string type;
-};
-
 class mesh : private meshDummy
 {
 private:
 	// Mesh Data
-	vector<Vertex> vertices;
-	vector<unsigned int> indices;
-	vector<Texture> textures;
+	vector<Vertex>* vertices;
+	vector<unsigned int>* indices;
+	vector<Texture>* textures;
 	unsigned int VAO, VBO, EBO;
 
 
 	// log pointer
 	LogManager* engineLog;
 public:
-	mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures, LogManager* engineLog);
+	mesh(vector<Vertex>* vertices, vector<unsigned int>* indices, vector<Texture>* textures, LogManager* engineLog);
 	~mesh();
 
 public:
