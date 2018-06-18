@@ -18,7 +18,7 @@ LODmesh::LODmesh(mesh * lvl1, mesh * lvl2, mesh * lvl3, mesh * lvl4)
 	this->lvl_2_mesh = lvl2;
 	this->lvl_3_mesh = lvl3;
 	this->lvl_4_mesh = lvl4;
-	this->lvl_5_mesh = nullptr;
+	this->lvl_5_mesh = lvl4;
 	currentLvl = LODLvl::lvl_1;
 }
 
@@ -27,8 +27,8 @@ LODmesh::LODmesh(mesh * lvl1, mesh * lvl2, mesh * lvl3)
 	this->lvl_1_mesh = lvl1;
 	this->lvl_2_mesh = lvl2;
 	this->lvl_3_mesh = lvl3;
-	this->lvl_4_mesh = nullptr;
-	this->lvl_5_mesh = nullptr;
+	this->lvl_4_mesh = lvl3;
+	this->lvl_5_mesh = lvl3;
 	currentLvl = LODLvl::lvl_1;
 }
 
@@ -36,19 +36,19 @@ LODmesh::LODmesh(mesh * lvl1, mesh * lvl2)
 {
 	this->lvl_1_mesh = lvl1;
 	this->lvl_2_mesh = lvl2;
-	this->lvl_3_mesh = nullptr;
-	this->lvl_4_mesh = nullptr;
-	this->lvl_5_mesh = nullptr;
+	this->lvl_3_mesh = lvl2;
+	this->lvl_4_mesh = lvl2;
+	this->lvl_5_mesh = lvl2;
 	currentLvl = LODLvl::lvl_1;
 }
 
 LODmesh::LODmesh(mesh * lvl1)
 {
 	this->lvl_1_mesh = lvl1;
-	this->lvl_2_mesh = nullptr;
-	this->lvl_3_mesh = nullptr;
-	this->lvl_4_mesh = nullptr;
-	this->lvl_5_mesh = nullptr;
+	this->lvl_2_mesh = lvl1;
+	this->lvl_3_mesh = lvl1;
+	this->lvl_4_mesh = lvl1;
+	this->lvl_5_mesh = lvl1;
 	currentLvl = LODLvl::lvl_1;
 }
 
