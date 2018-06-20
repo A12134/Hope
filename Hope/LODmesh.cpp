@@ -1,3 +1,6 @@
+/*Discarded class, the LOD functionality has been intergraded with the model class*/
+
+/*
 #include "LODmesh.h"
 
 
@@ -79,3 +82,4 @@ void LODmesh::render(shaderProgram* shaderSP, mat4 projection, mat4 view, mat4 m
 		break;
 	}
 }
+*/

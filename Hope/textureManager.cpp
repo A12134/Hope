@@ -14,7 +14,7 @@ void textureManager::createNewMaterial(std::string name)
 {
 	for (unsigned int i = 0; i < Mats.size(); i++)
 	{
-		if (Mats.at(i).name == name)
+		if (Mats.at(i)->name == name)
 		{
 			engineLog->writeLog("Warning: Material " + name + " already exist\n");
 			return;
@@ -23,7 +23,7 @@ void textureManager::createNewMaterial(std::string name)
 
 	Material newMaterial;
 	newMaterial.name = name;
-	Mats.push_back(newMaterial);
+	Mats.push_back(&newMaterial);
 }
 
 void textureManager::addTexture(std::string materialName, const char * texturePath, E_TEXTURE_TYPE textureType, TEX_PARA warpMethod, TEX_PARA filterMethod)
@@ -69,19 +69,24 @@ void textureManager::addTexture(std::string materialName, const char * texturePa
 	mat->textureSet.push_back(newTexture);
 }
 
+void textureManager::addMaterial(Material * mat)
+{
+	Mats.push_back(mat);
+}
+
 Material * textureManager::findMaterial(std::string materialName)
 {
 	for (unsigned int i = 0; i < Mats.size(); i++)
 	{
-		if (Mats.at(i).name == materialName)
+		if (Mats.at(i)->name == materialName)
 		{
-			return &(Mats.at(i));
+			return Mats.at(i);
 		}
 	}
 	return nullptr;
 }
 
-std::string textureManager::generateTexName(Material * mat, E_TEXTURE_TYPE type)
+std::string generateTexName(Material * mat, E_TEXTURE_TYPE type)
 {
 	std::string TexName;
 
@@ -101,6 +106,9 @@ std::string textureManager::generateTexName(Material * mat, E_TEXTURE_TYPE type)
 		break;
 	case E_TEXTURE_TYPE::SPECULAR_MAP:
 		TexName += "Specular_" + std::to_string(mat->specularNum++);
+		break;
+	case E_TEXTURE_TYPE::AMBIENT_MAP:
+		TexName += "Ambient_" + std::to_string(mat->ambientNum++);
 		break;
 	default:
 		break;

@@ -188,7 +188,21 @@ void texture::loadImage(const char* filename)
 	unsigned char* imageData = stbi_load(filename, &width, &height, &nrChannels, 0);
 	if (imageData)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+		GLenum format;
+		if (nrChannels == 1)
+		{
+			format = GL_RED;
+		}
+		else if (nrChannels == 2)
+		{
+			format = GL_RGB;
+		}
+		else if (nrChannels == 3) 
+		{
+			format = GL_RGBA;
+		}
+
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		stbi_image_free(imageData);
 	}

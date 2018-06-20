@@ -2,14 +2,31 @@
 
 
 
-model::model(const char* filePath, LogManager* engineLog)
+model::model(const char* filePath, textureManager* _textureManager, std::string materialName, LogManager* engineLog)
 {
 	this->engineLog = engineLog;
-	loadModel(filePath);
+	this->texManager = _textureManager;
+	mmaterial.name = materialName;
+	//loadModel(filePath);
 }
 
 model::~model()
 {
+}
+
+void model::addNewLevelLOD(const char * filePath, float maximumDistance)
+{
+	loadModel(filePath);
+	float tmp = maximumDistance;
+	for (unsigned int i = 0; i < LODtracker.size(); i++)
+	{
+		if (tmp < LODtracker.at(i))
+		{
+			tmp = LODtracker.at(i) + 0.1f;
+			engineLog->writeLog("Warning: Level of detail does not assigned by proper ascending order, this may causing incorrect visual effect.\n");
+		}
+	}
+	LODtracker.push_back(tmp);
 }
 
 void model::loadModel(std::string path)
@@ -30,14 +47,22 @@ void model::loadModel(std::string path)
 void model::processNode(aiNode * node, const aiScene * scene)
 {
 	// process all the node's meshes (if any)
+	std::vector<mesh*> tmpMeshes;
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes.push_back(processMesh(mesh, scene));
+		tmpMeshes.push_back(processMesh(mesh, scene));
 	}
+
+	for (unsigned int i = 0; i < node->mNumChildren; i++)
+	{
+		processNode(node->mChildren[i], scene);
+	}
+
+	LODmeshes.push_back(tmpMeshes);
 }
 
-LODmesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
+mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 {
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
@@ -88,5 +113,42 @@ LODmesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 	}
 
 	// TODO processing Materials
+	if (mesh->mMaterialIndex >= 0)
+	{
+		
+		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
+		// diffuse maps
+		loadMaterialTextures(material, aiTextureType_DIFFUSE, E_TEXTURE_TYPE::DIFFUSE_MAP);
+		// specular maps
+		loadMaterialTextures(material, aiTextureType_SPECULAR, E_TEXTURE_TYPE::SPECULAR_MAP);
+		// normal maps
+		loadMaterialTextures(material, aiTextureType_NORMALS, E_TEXTURE_TYPE::NORMAL_MAP);
+		// ambient maps
+		loadMaterialTextures(material, aiTextureType_AMBIENT, E_TEXTURE_TYPE::AMBIENT_MAP);
 
+		material->~aiMaterial();
+		material = nullptr;
+	}
+
+	texManager->addMaterial(&mmaterial);
+
+	class mesh* newMesh = new class mesh(&vertices, &indices, &(mmaterial.textureSet), engineLog);
+
+	return newMesh;
+	
+}
+
+void model::loadMaterialTextures(aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE t_type)
+{
+	vector<Texture> textures;
+	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+	{
+		aiString str;
+		mat->GetTexture(type, i, &str);
+		Texture _texture;
+		texture* tex = new texture(str.C_Str(), TEX_PARA::E_WRAP_REPEAT, TEX_PARA::E_FILTER_LINEAR_MIPMAP_LINEAR, engineLog);
+		_texture.id = tex->getTexture();
+		_texture.type = generateTexName(&mmaterial, t_type);
+		mmaterial.textureSet.push_back(_texture);
+	}
 }

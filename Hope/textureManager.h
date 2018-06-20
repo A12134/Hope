@@ -13,6 +13,7 @@ enum class E_TEXTURE_TYPE
 	BUMP_MAP,
 	NORMAL_MAP,
 	SPECULAR_MAP,
+	AMBIENT_MAP
 };
 
 struct Texture
@@ -27,7 +28,8 @@ struct Material
 		opacityNum(0), 
 		bumpNum(0), 
 		normalNum(0), 
-		specularNum(0) 
+		specularNum(0),
+		ambientNum(0)
 	{};
 
 	std::vector<Texture> textureSet;
@@ -37,12 +39,15 @@ struct Material
 	unsigned int bumpNum;
 	unsigned int normalNum;
 	unsigned int specularNum;
+	unsigned int ambientNum;
 };
+
+std::string generateTexName(Material* mat, E_TEXTURE_TYPE type);
 
 class textureManager
 {
 private:
-	std::vector<Material> Mats;
+	std::vector<Material*> Mats;
 	LogManager* engineLog;
 
 public:
@@ -54,10 +59,10 @@ public:
 
 	void addTexture(std::string materialName, const char* texturePath, E_TEXTURE_TYPE textureType, TEX_PARA warpMethod, TEX_PARA filterMethod);
 	void addTexture(std::string materialName, const char* texturePath, E_TEXTURE_TYPE textureType, TEX_PARA warpMethod_s, TEX_PARA warpMethod_t, TEX_PARA filterMethod_min, TEX_PARA filterMethod_mag);
-
+	void addMaterial(Material* mat);
 	Material* findMaterial(std::string materialName);
 
 private:
-	std::string generateTexName(Material* mat, E_TEXTURE_TYPE type);
+	
 };
 #endif

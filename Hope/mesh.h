@@ -1,4 +1,3 @@
-/*If not neccessary, do not directly reference this class. Use LOD mesh instead*/
 
 #ifndef MESH_H
 #define MESH_H

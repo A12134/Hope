@@ -1,3 +1,6 @@
+/*Discarded class, the LOD functionality has been intergraded with the model class*/
+
+/*
 #ifndef LOD_MESH_H
 #define LOD_MESH_H
 #include "mesh.h"
@@ -36,5 +39,5 @@ public:
 	void render(shaderProgram* shaderSP, mat4 projection, mat4 view, mat4 model);
 
 };
-#endif
+#endif*/
 
