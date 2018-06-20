@@ -3,11 +3,11 @@
 
 
 
-gameObject::gameObject(transformation transform, shaderProgram* sp, LODmesh* meshes, LogManager* engineLog)
+gameObject::gameObject(transformation transform, shaderProgram* sp, model* meshes, LogManager* engineLog)
 {
 	this->transform = transform;
 	this->sp = sp;
-	this->meshes = meshes;
+	this->mesh = meshes;
 	this->engineLog = engineLog;
 }
 
@@ -21,11 +21,11 @@ void gameObject::render(camera* cam)
 	model = translate(model, transform.position);
 	model = scale(model, transform.scale);
 	model = rotate(model, transform.rotation, transform.rotationAxis);
-	mat4 view = cam->getViewMatrix();
+	//mat4 view = cam->getViewMatrix();
 	mat4 projection = cam->getProjectionMatrix();
 
-	if(meshes != nullptr)
+	if(mesh != nullptr)
 	{
-		meshes->render(sp, projection, view, model);
+		mesh->render(this->transform.position, cam, sp, model);
 	}
 }

@@ -1,6 +1,6 @@
 #ifndef GAME_OBJECT_H
 #define GAME_OBJECT_H
-#include "LODmesh.h"
+#include "model.h"
 #include "LogManager.h"
 #include "shaderProgram.h"
 #include <glm/glm.hpp>
@@ -26,10 +26,10 @@ private:
 protected:
 	transformation transform;
 	shaderProgram* sp;
-	LODmesh* meshes;
+	model* mesh;
 
 public:
-	gameObject(transformation transform, shaderProgram* sp, LODmesh* meshes, LogManager* engineLog);
+	gameObject(transformation transform, shaderProgram* sp, model* meshes, LogManager* engineLog);
 	~gameObject();
 
 public:
