@@ -8,10 +8,29 @@ model::model(const char* filePath, textureManager* _textureManager, std::string 
 	this->texManager = _textureManager;
 	mmaterial.name = materialName;
 	//loadModel(filePath);
+	LODIndexTracker = 0;
 }
 
 model::~model()
 {
+}
+
+void model::render(glm::vec3 pos, camera * cam, shaderProgram * sp, glm::mat4 model)
+{
+	float distanceFromCam = glm::length(pos - cam->getCamPos());
+	if (LODtracker.at(LODIndexTracker) > distanceFromCam)
+	{
+		LODIndexTracker++;
+	}
+	else if (LODtracker.at(LODIndexTracker) < distanceFromCam)
+	{
+		LODIndexTracker--;
+	}
+	
+	for (unsigned int i = 0; i < LODmeshes.at(LODIndexTracker).size(); i++)
+	{
+		LODmeshes.at(LODIndexTracker).at(i)->render(sp, cam->getProjectionMatrix(), model, cam->getViewMatrix());
+	}
 }
 
 void model::addNewLevelLOD(const char * filePath, float maximumDistance)

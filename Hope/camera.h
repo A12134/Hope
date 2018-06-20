@@ -25,6 +25,8 @@ public:
 	mat4 getViewMatrix();
 
 	virtual void update(float deltaSec);
+
+	vec3 getCamPos() { return camPos; };
 };
 #endif
 

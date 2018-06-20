@@ -11,6 +11,10 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "textureManager.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include "camera.h"
+#include "shaderProgram.h"
 
 class model
 {
@@ -18,6 +22,7 @@ private:
 	//std::vector<LODmesh*> meshes;
 	std::vector<std::vector<mesh*>> LODmeshes;
 	std::vector<float> LODtracker;
+	int LODIndexTracker;
 	std::string modelName;
 	LogManager* engineLog;
 	Material mmaterial;
@@ -28,7 +33,7 @@ public:
 	~model();
 
 public:
-	void render();
+	void render(glm::vec3 pos, camera* cam, shaderProgram* sp, glm::mat4 model);
 
 	// integraded with LOD functionality
 	void addNewLevelLOD(const char* filePath, float maximumDistance);
