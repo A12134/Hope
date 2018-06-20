@@ -98,9 +98,6 @@
     <ClInclude Include="LODmesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="meshDummy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>

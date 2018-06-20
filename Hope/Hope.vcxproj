@@ -156,7 +156,6 @@
     <ClInclude Include="LODmesh.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="mesh.h" />
-    <ClInclude Include="meshDummy.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shaderManager.h" />
