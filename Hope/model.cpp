@@ -2,7 +2,7 @@
 
 
 
-model::model(const char* filePath, textureManager* _textureManager, std::string materialName, LogManager* engineLog)
+model::model(textureManager* _textureManager, std::string materialName, LogManager* engineLog)
 {
 	this->engineLog = engineLog;
 	this->texManager = _textureManager;
@@ -22,9 +22,12 @@ void model::render(glm::vec3 pos, camera * cam, shaderProgram * sp, glm::mat4 mo
 	{
 		LODIndexTracker++;
 	}
-	else if (LODtracker.at(LODIndexTracker) < distanceFromCam)
+	else if (LODIndexTracker > 0)
 	{
-		LODIndexTracker--;
+		if (LODtracker.at(LODIndexTracker-1) > distanceFromCam)
+		{
+			LODIndexTracker--;
+		}
 	}
 	
 	for (unsigned int i = 0; i < LODmeshes.at(LODIndexTracker).size(); i++)
@@ -165,7 +168,8 @@ void model::loadMaterialTextures(aiMaterial * mat, aiTextureType type, E_TEXTURE
 		aiString str;
 		mat->GetTexture(type, i, &str);
 		Texture _texture;
-		texture* tex = new texture(str.C_Str(), TEX_PARA::E_WRAP_REPEAT, TEX_PARA::E_FILTER_LINEAR_MIPMAP_LINEAR, engineLog);
+		std::string filePath = modelName + str.C_Str();
+		texture* tex = new texture(filePath.c_str(), TEX_PARA::E_WRAP_REPEAT, TEX_PARA::E_FILTER_LINEAR_MIPMAP_LINEAR, engineLog);
 		_texture.id = tex->getTexture();
 		_texture.type = generateTexName(&mmaterial, t_type);
 		mmaterial.textureSet.push_back(_texture);

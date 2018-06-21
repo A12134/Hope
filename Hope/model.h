@@ -29,7 +29,7 @@ private:
 	textureManager* texManager;
 
 public:
-	model(const char* filePath, textureManager* _textureManager, std::string materialName, LogManager* engineLog);
+	model(textureManager* _textureManager, std::string materialName, LogManager* engineLog);
 	~model();
 
 public:

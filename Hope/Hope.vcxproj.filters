@@ -19,6 +19,12 @@
     <Filter Include="Resource Files\COLOR_TABLE">
       <UniqueIdentifier>{60abd262-df43-4452-9456-aae8255f0b91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{9aede268-57a2-4b7c-a3f0-0cceee3f0aee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\stdImageLibrary">
+      <UniqueIdentifier>{205cf4c5-f4b1-4295-aacd-c8f71861e40c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\glad.c">
@@ -69,6 +75,12 @@
     <ClCompile Include="model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NanoSuit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>Resource Files\stdImageLibrary</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.h">
@@ -116,5 +128,22 @@
     <ClInclude Include="model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NanoSuit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Resource Files\stdImageLibrary</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vertexShader.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="geometryShader.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="fragmentShader.glsl">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
