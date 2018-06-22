@@ -18,7 +18,7 @@ model::~model()
 void model::render(glm::vec3 pos, camera * cam, shaderProgram * sp, glm::mat4 model)
 {
 	float distanceFromCam = glm::length(pos - cam->getCamPos());
-	if (LODtracker.at(LODIndexTracker) > distanceFromCam)
+	if (LODtracker.at(LODIndexTracker) < distanceFromCam)
 	{
 		LODIndexTracker++;
 	}
@@ -62,26 +62,26 @@ void model::loadModel(std::string path)
 		engineLog->errorExit();
 	}
 	this->modelName = path.substr(0, path.find_last_of('/'));
-
-	processNode(scene->mRootNode, scene);
+	std::vector<mesh*> tmpMeshes;
+	processNode(scene->mRootNode, scene, &tmpMeshes);
+	LODmeshes.push_back(tmpMeshes);
 }
 
-void model::processNode(aiNode * node, const aiScene * scene)
+void model::processNode(aiNode * node, const aiScene * scene, std::vector<mesh*>* tmpMeshes)
 {
 	// process all the node's meshes (if any)
-	std::vector<mesh*> tmpMeshes;
+	//std::vector<mesh*> tmpMeshes;
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-		tmpMeshes.push_back(processMesh(mesh, scene));
+		tmpMeshes->push_back(processMesh(mesh, scene));
 	}
 
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		processNode(node->mChildren[i], scene);
+		processNode(node->mChildren[i], scene, tmpMeshes);
 	}
 
-	LODmeshes.push_back(tmpMeshes);
 }
 
 mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
@@ -147,16 +147,13 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 		loadMaterialTextures(material, aiTextureType_NORMALS, E_TEXTURE_TYPE::NORMAL_MAP);
 		// ambient maps
 		loadMaterialTextures(material, aiTextureType_AMBIENT, E_TEXTURE_TYPE::AMBIENT_MAP);
-
-		material->~aiMaterial();
-		material = nullptr;
 	}
 
-	texManager->addMaterial(&mmaterial);
+	//texManager->addMaterial(&mmaterial);
 
-	class mesh* newMesh = new class mesh(&vertices, &indices, &(mmaterial.textureSet), engineLog);
+	 
 
-	return newMesh;
+	return new class mesh(vertices, indices, mmaterial.textureSet, engineLog);
 	
 }
 

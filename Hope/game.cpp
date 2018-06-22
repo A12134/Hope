@@ -26,13 +26,13 @@ void game::initTexture()
 void game::initCam()
 {
 	gameCam = new camera(
-		glm::vec3(0.0f, 0.0f, -5.0f),		// camera position
+		glm::vec3(0.0f, 0.0f, -50.0f),		// camera position
 		glm::vec3(0.0f, 0.0f, 0.0f),		// camera target
 		60.0f,								// field of view angle in degrees
 		1024.0f,							// width
 		800.0f,								// height
-		-3.0f,								// near plane
-		10.0f								// far plane
+		0.1f,								// near plane
+		100.0f								// far plane
 	);
 }
 
