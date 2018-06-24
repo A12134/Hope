@@ -127,11 +127,12 @@ void shaderProgram::setUniform4ui(const char * var, unsigned int ui1, unsigned i
 	glUniform4ui(loc, ui1, ui2, ui3, ui4);
 }
 
+/*
 void shaderProgram::setUniform1fv(const char * var, glm::vec1 vec1)
 {
 	GLint loc = glGetUniformLocation(this->programID, var);
 	glUniform1fv(loc, 1, glm::value_ptr(vec1));
-}
+}*/
 
 void shaderProgram::setUniform2fv(const char * var, glm::vec2 vec2)
 {
@@ -151,11 +152,12 @@ void shaderProgram::setUniform4fv(const char * var, glm::vec4 vec4)
 	glUniform4fv(loc, 1, glm::value_ptr(vec4));
 }
 
+/*
 void shaderProgram::setUniform1iv(const char * var, glm::ivec1 ivec1)
 {
 	GLint loc = glGetUniformLocation(this->programID, var);
 	glUniform1iv(loc, 1, glm::value_ptr(ivec1));
-}
+}*/
 
 void shaderProgram::setUniform2iv(const char * var, glm::ivec2 ivec2)
 {
@@ -175,11 +177,12 @@ void shaderProgram::setUniform4iv(const char * var, glm::ivec4 ivec4)
 	glUniform4iv(loc, 1, glm::value_ptr(ivec4));
 }
 
+/*
 void shaderProgram::setUniform1uiv(const char * var, glm::uvec1 uvec1)
 {
 	GLint loc = glGetUniformLocation(this->programID, var);
 	glUniform1uiv(loc, 1, glm::value_ptr(uvec1));
-}
+}*/
 
 void shaderProgram::setUniform2uiv(const char * var, glm::uvec2 uvec2)
 {

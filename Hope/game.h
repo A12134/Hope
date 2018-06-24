@@ -2,6 +2,11 @@
 #define GAME_H
 #include "window.h"
 #include "LogManager.h"
+#include "camera.h"
+#include "NanoSuit.h"
+#include "shaderManager.h"
+#include "textureManager.h"
+
 enum class EGameState 
 {
 	E_START,
@@ -19,9 +24,25 @@ private:
 private:
 	EGameState currentState;
 
+	// engine Objects
+	shaderManager* mShaderManager;
+	textureManager* mTextureManager;
+	// Objects
+	camera* gameCam;
+	NanoSuit* testModel;
+
 public:
 	// initialize Game parameters
 	void init();
+
+private:
+	void initShaders();
+	void initTexture();
+	void initCam();
+	void initModel();
+	
+	void addShader();
+
 
 public:
 	game(window* RenderWindow, LogManager* engineLog);

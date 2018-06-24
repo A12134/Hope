@@ -1,7 +1,7 @@
 #include "texture.h"
 #include "glad\glad.h"
 #include "GLFW\glfw3.h"
-
+#include "stb_image.h"
 
 texture::texture(const char * filename, TEX_PARA warpMethod, TEX_PARA filterMethod, LogManager* engineLog)
 {
@@ -193,16 +193,16 @@ void texture::loadImage(const char* filename)
 		{
 			format = GL_RED;
 		}
-		else if (nrChannels == 2)
+		else if (nrChannels == 3)
 		{
 			format = GL_RGB;
 		}
-		else if (nrChannels == 3) 
+		else if (nrChannels == 4) 
 		{
 			format = GL_RGBA;
 		}
 
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, imageData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		stbi_image_free(imageData);
 	}

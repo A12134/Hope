@@ -29,7 +29,7 @@ private:
 	textureManager* texManager;
 
 public:
-	model(const char* filePath, textureManager* _textureManager, std::string materialName, LogManager* engineLog);
+	model(textureManager* _textureManager, std::string materialName, LogManager* engineLog);
 	~model();
 
 public:
@@ -41,9 +41,9 @@ public:
 
 private:
 	void loadModel(std::string);
-	void processNode(aiNode* node, const aiScene* scene);
+	void processNode(aiNode* node, const aiScene* scene, std::vector<mesh*>* tmpMeshes);
 	mesh* processMesh(aiMesh* mesh, const aiScene* scene);
-	void loadMaterialTextures(aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE T_type);
+	void loadMaterialTextures(aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE T_type, Material* materials);
 };
 #endif
 

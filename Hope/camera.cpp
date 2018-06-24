@@ -2,8 +2,8 @@
 
 
 
-camera::camera(vec3 camPos, vec3 camTarget, float fov, float width, float height, float near, float far):
-	baseCam(fov, width, height, near, far)
+camera::camera(vec3 camPos, vec3 camTarget, float fov, float width, float height, float nearz, float farz):
+	baseCam(fov, width, height, nearz, farz)
 {
 	this->UpVector = vec3(0.0f, 1.0f, 0.0f);
 	this->camPos = camPos;
@@ -14,8 +14,8 @@ camera::camera(vec3 camPos, vec3 camTarget, float fov, float width, float height
 	
 }
 
-camera::camera(vec3 camPos, vec3 camTarget, float left, float right, float bot, float top, float near, float far):
-	baseCam(left, right, bot, top, near, far)
+camera::camera(vec3 camPos, vec3 camTarget, float left, float right, float bot, float top, float nearz, float farz):
+	baseCam(left, right, bot, top, nearz, farz)
 {
 	this->UpVector = vec3(0.0f, 1.0f, 0.0f);
 	this->camPos = camPos;
@@ -31,7 +31,9 @@ camera::~camera()
 
 mat4 camera::getViewMatrix()
 {
-	return lookAt(camPos, camTarget, camUp);
+	mat4 view = mat4(1);
+	view = glm::translate(view, this->camPos);
+	return view;
 }
 
 void camera::update(float deltaSec)

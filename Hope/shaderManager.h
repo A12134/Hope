@@ -8,7 +8,7 @@
 class shaderManager
 {
 private:
-	std::vector<shaderProgram*>* shaderCollection;
+	std::vector<shaderProgram*> shaderCollection;
 	LogManager* engineLog;
 
 public:
