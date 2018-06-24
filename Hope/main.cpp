@@ -21,7 +21,9 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
+	// Using multisample buffer
+	glfwWindowHint(GLFW_SAMPLES, 4);
+	
 
 	window* mainWindow = new window(1024, 800, "Main window", NULL, NULL, engineLog);
 	mainWindow->activateContext();
@@ -35,6 +37,9 @@ int main()
 
 	mainWindow->createViewport(0, 0, 1024, 800);
 	mainWindow->enableDepthTest();
+	
+	// Enable MSAA
+	glEnable(GL_MULTISAMPLE);
 
 	// window resize callback function
 	glfwSetFramebufferSizeCallback(glfwGetCurrentContext(), framebuffer_size_callback);

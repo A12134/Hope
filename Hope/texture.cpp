@@ -202,7 +202,7 @@ void texture::loadImage(const char* filename)
 			format = GL_RGBA;
 		}
 
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		stbi_image_free(imageData);
 	}

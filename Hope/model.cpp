@@ -135,29 +135,30 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 	}
 
 	// TODO processing Materials
+	Material meshMats;
 	if (mesh->mMaterialIndex >= 0)
 	{
 		
 		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
 		// diffuse maps
-		loadMaterialTextures(material, aiTextureType_DIFFUSE, E_TEXTURE_TYPE::DIFFUSE_MAP);
+		loadMaterialTextures(material, aiTextureType_DIFFUSE, E_TEXTURE_TYPE::DIFFUSE_MAP, &meshMats);
 		// specular maps
-		loadMaterialTextures(material, aiTextureType_SPECULAR, E_TEXTURE_TYPE::SPECULAR_MAP);
+		loadMaterialTextures(material, aiTextureType_SPECULAR, E_TEXTURE_TYPE::SPECULAR_MAP, &meshMats);
 		// normal maps
-		loadMaterialTextures(material, aiTextureType_NORMALS, E_TEXTURE_TYPE::NORMAL_MAP);
+		loadMaterialTextures(material, aiTextureType_NORMALS, E_TEXTURE_TYPE::NORMAL_MAP, &meshMats);
 		// ambient maps
-		loadMaterialTextures(material, aiTextureType_AMBIENT, E_TEXTURE_TYPE::AMBIENT_MAP);
+		loadMaterialTextures(material, aiTextureType_AMBIENT, E_TEXTURE_TYPE::AMBIENT_MAP, &meshMats);
 	}
 
 	//texManager->addMaterial(&mmaterial);
 
 	 
 
-	return new class mesh(vertices, indices, mmaterial.textureSet, engineLog);
+	return new class mesh(vertices, indices, meshMats.textureSet, engineLog);
 	
 }
 
-void model::loadMaterialTextures(aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE t_type)
+void model::loadMaterialTextures(aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE t_type, Material* materials)
 {
 	vector<Texture> textures;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -168,7 +169,8 @@ void model::loadMaterialTextures(aiMaterial * mat, aiTextureType type, E_TEXTURE
 		std::string filePath = modelName + str.C_Str();
 		texture* tex = new texture(filePath.c_str(), TEX_PARA::E_WRAP_REPEAT, TEX_PARA::E_FILTER_LINEAR_MIPMAP_LINEAR, engineLog);
 		_texture.id = tex->getTexture();
-		_texture.type = generateTexName(&mmaterial, t_type);
-		mmaterial.textureSet.push_back(_texture);
+		_texture.type = generateTexName(materials, t_type);
+		materials->textureSet.push_back(_texture);
+		//mmaterial.textureSet.push_back(_texture);
 	}
 }
