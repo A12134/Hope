@@ -10,7 +10,7 @@ void game::init()
 	initCam();
 	initModel();
 
-	currentState = EGameState::E_PLAY;
+	currentState = EGameState::E_START;
 }
 
 void game::initShaders()
@@ -25,35 +25,19 @@ void game::initTexture()
 
 void game::initCam()
 {
-	gameCam = new camera(
-		glm::vec3(0.0f, -14.0f, -10.0f),	// camera position
-		glm::vec3(0.0f, -45.0f, 0.0f),		// camera target
-		30.0f,								// field of view angle in degrees
-		1024.0f,							// width
-		800.0f,								// height
-		0.1f,								// near plane
-		100.0f								// far plane
-	);
+	// initilize Camera data
 }
 
 void game::initModel()
 {
-	transformation transform;
-	transform.position = glm::vec3(0.0f, 0.0f, 0.0f);
-	transform.rotation = 0.0f;
-	transform.rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-	transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
-
-	model* nanoSuit = new model(mTextureManager, "NanoSuitMat", engineLog);
-	nanoSuit->addNewLevelLOD("assets//nanosuit.obj", 1000);
-
-	testModel = new NanoSuit(transform, mShaderManager->getShader("NanoSuitShader"), nanoSuit, engineLog);
+	// initilize Model data
 
 }
 
 void game::addShader()
 {
-	mShaderManager->createNewShader("vertexShader.glsl", "fragmentShader.glsl", "NanoSuitShader");
+	// adding shaders
+	//mShaderManager->createNewShader("vertexShader.glsl", "fragmentShader.glsl", "NanoSuitShader");
 }
 
 game::game(window * RenderWindow, LogManager* engineLog)
@@ -64,12 +48,6 @@ game::game(window * RenderWindow, LogManager* engineLog)
 
 game::~game()
 {
-	delete testModel;
-	testModel = nullptr;
-
-	delete gameCam;
-	gameCam = nullptr;
-
 	delete mTextureManager;
 	mTextureManager = nullptr;
 
@@ -155,7 +133,6 @@ void game::StartStateUpdate(float deltaSecondes)
 
 void game::PlayStateUpdate(float deltaSeconds)
 {
-	testModel->update(deltaSeconds);
 }
 
 void game::PauseStateUpdate(float deltaSeconds)
@@ -172,7 +149,6 @@ void game::StartStateRender()
 
 void game::PlayStateRender()
 {
-	testModel->render(gameCam);
 }
 
 void game::PauseStateRender()

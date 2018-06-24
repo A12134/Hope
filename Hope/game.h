@@ -3,7 +3,6 @@
 #include "window.h"
 #include "LogManager.h"
 #include "camera.h"
-#include "NanoSuit.h"
 #include "shaderManager.h"
 #include "textureManager.h"
 
@@ -27,9 +26,8 @@ private:
 	// engine Objects
 	shaderManager* mShaderManager;
 	textureManager* mTextureManager;
-	// Objects
-	camera* gameCam;
-	NanoSuit* testModel;
+
+
 
 public:
 	// initialize Game parameters
