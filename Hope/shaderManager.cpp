@@ -22,12 +22,12 @@ void shaderManager::createNewShader(const std::string vertexShaderSource, const 
 	shaderProgram* thisProgram = new shaderProgram(shaderName, engineLog);
 	thisProgram->linkShaders(vertexShader->getShader());
 
-	shaderCollection->push_back(thisProgram);
+	shaderCollection.push_back(thisProgram);
 
 	delete vertexShader;
 	vertexShader = nullptr;
 
-	thisProgram = nullptr;
+	//thisProgram = nullptr;
 }
 
 void shaderManager::createNewShader(const std::string vertexShaderSource, const std::string fragmentShaderSource, const std::string shaderName)
@@ -43,7 +43,7 @@ void shaderManager::createNewShader(const std::string vertexShaderSource, const 
 	shaderProgram* thisProgram = new shaderProgram(shaderName, engineLog);
 	thisProgram->linkShaders(vertexShader->getShader(), fragmentShader->getShader());
 	
-	shaderCollection->push_back(thisProgram);
+	shaderCollection.push_back(thisProgram);
 
 	delete vertexShader;
 	vertexShader = nullptr;
@@ -51,7 +51,7 @@ void shaderManager::createNewShader(const std::string vertexShaderSource, const 
 	delete fragmentShader;
 	fragmentShader = nullptr;
 
-	thisProgram = nullptr;
+	//thisProgram = nullptr;
 }
 
 void shaderManager::createNewShader(const std::string vertexShaderSource, const std::string fragmentShaderSource, const std::string geometryShaderSource, const std::string shaderName)
@@ -70,7 +70,7 @@ void shaderManager::createNewShader(const std::string vertexShaderSource, const 
 	shaderProgram* thisProgram = new shaderProgram(shaderName, engineLog);
 	thisProgram->linkShaders(vertexShader->getShader(), fragmentShader->getShader(), geometryShader->getShader());
 
-	shaderCollection->push_back(thisProgram);
+	shaderCollection.push_back(thisProgram);
 
 	delete vertexShader;
 	vertexShader = nullptr;
@@ -81,17 +81,17 @@ void shaderManager::createNewShader(const std::string vertexShaderSource, const 
 	delete geometryShader;
 	geometryShader = nullptr;
 
-	thisProgram = nullptr;
+	//thisProgram = nullptr;
 }
 
 shaderProgram * shaderManager::getShader(const std::string shaderName)
 {
 	// can implement as hash table to increase the efficiency
-	for (unsigned int i = 0; i < shaderCollection->size(); i++)
+	for (unsigned int i = 0; i < shaderCollection.size(); i++)
 	{
-		if (shaderCollection->at(i)->matchName(shaderName))
+		if (shaderCollection.at(i)->matchName(shaderName))
 		{
-			return shaderCollection->at(i);
+			return shaderCollection.at(i);
 		}
 	}
 	engineLog->writeLog("Error: No shader found! shader name: " + shaderName + "\n");

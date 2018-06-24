@@ -1,5 +1,7 @@
 #ifndef SHADER_PROGRAM_H
 #define SHADER_PROGRAM_H
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 #include <string>
 #include "LogManager.h"
 #include <glm/glm.hpp>
@@ -54,19 +56,19 @@ public:
 	void setUniform4ui(const char* var, unsigned int ui1, unsigned int ui2, unsigned int ui3, unsigned int ui4);
 
 	// float vector
-	void setUniform1fv(const char* var, glm::vec1 vec1);
+	//void setUniform1fv(const char* var, glm::vec1 vec1);
 	void setUniform2fv(const char* var, glm::vec2 vec2);
 	void setUniform3fv(const char* var, glm::vec3 vec3);
 	void setUniform4fv(const char* var, glm::vec4 vec4);
 
 	// integer vector
-	void setUniform1iv(const char* var, glm::ivec1 ivec1);
+	//void setUniform1iv(const char* var, glm::ivec1 ivec1);
 	void setUniform2iv(const char* var, glm::ivec2 ivec2);
 	void setUniform3iv(const char* var, glm::ivec3 ivec3);
 	void setUniform4iv(const char* var, glm::ivec4 ivec4);
 
 	// unsigned integer vector
-	void setUniform1uiv(const char* var, glm::uvec1 uvec1);
+	//void setUniform1uiv(const char* var, glm::uvec1 uvec1);
 	void setUniform2uiv(const char* var, glm::uvec2 uvec2);
 	void setUniform3uiv(const char* var, glm::uvec3 uvec3);
 	void setUniform4uiv(const char* var, glm::uvec4 uvec4);

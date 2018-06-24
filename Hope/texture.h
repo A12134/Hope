@@ -1,8 +1,7 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 #include "LogManager.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb\stb_image.h"
+
 
 enum class TEX_PARA {
 	E_WRAP_REPEAT,

@@ -15,10 +15,10 @@ protected:
 	
 public:
 	camera(vec3 camPos, vec3 camTarget,
-		float fov, float width, float height, float near, float far
+		float fov, float width, float height, float nearz, float farz
 	);
 	camera(vec3 camPos, vec3 camTarget,
-		float left, float right, float bot, float top, float near, float far
+		float left, float right, float bot, float top, float nearz, float farz
 	);
 	~camera();
 
