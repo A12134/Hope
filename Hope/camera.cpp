@@ -31,7 +31,9 @@ camera::~camera()
 
 mat4 camera::getViewMatrix()
 {
-	return lookAt(camPos, camTarget, camUp);
+	mat4 view = mat4(1);
+	view = glm::translate(view, this->camPos);
+	return view;
 }
 
 void camera::update(float deltaSec)

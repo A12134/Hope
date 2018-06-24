@@ -26,8 +26,8 @@ void game::initTexture()
 void game::initCam()
 {
 	gameCam = new camera(
-		glm::vec3(0.0f, 0.0f, -50.0f),		// camera position
-		glm::vec3(0.0f, 0.0f, 0.0f),		// camera target
+		glm::vec3(0.0f, -10.0f, -25.0f),	// camera position
+		glm::vec3(0.0f, 45.0f, 0.0f),		// camera target
 		60.0f,								// field of view angle in degrees
 		1024.0f,							// width
 		800.0f,								// height
@@ -155,6 +155,7 @@ void game::StartStateUpdate(float deltaSecondes)
 
 void game::PlayStateUpdate(float deltaSeconds)
 {
+	testModel->update(deltaSeconds);
 }
 
 void game::PauseStateUpdate(float deltaSeconds)

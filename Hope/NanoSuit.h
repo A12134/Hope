@@ -8,7 +8,7 @@ public:
 	NanoSuit(transformation transform, shaderProgram* sp, model* meshes, LogManager* engineLog);
 	~NanoSuit();
 
-	void update(float deltaSec) {};
+	void update(float deltaSec);
 };
 #endif
 

@@ -60,16 +60,19 @@ void mesh::setupMesh()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices.front(), GL_STATIC_DRAW);
 
 	// passing in vertex position to buffer
-	glEnableVertexAttribArray(0);
+	
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	glEnableVertexAttribArray(0);
 
 	// passing in vertex normals to buffer
-	glEnableVertexAttribArray(1);
+	
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+	glEnableVertexAttribArray(1);
 
 	// passing in texture coords
-	glEnableVertexAttribArray(2);
+	
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
 }
