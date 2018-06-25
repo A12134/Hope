@@ -2,9 +2,13 @@
 #define CAMERA_H
 #include "baseCam.h"
 
+
 class camera :
 	public baseCam
 {
+private:
+	float cameraSpeed;
+
 protected:
 	vec3 camPos;
 	vec3 camTarget;
@@ -12,12 +16,13 @@ protected:
 	vec3 camRight;
 	vec3 UpVector;
 	vec3 targetToPos;
+	vec3 camFront;
 	
 public:
-	camera(vec3 camPos, vec3 camTarget,
+	camera(window* w, vec3 camPos, vec3 camTarget,
 		float fov, float width, float height, float nearz, float farz
 	);
-	camera(vec3 camPos, vec3 camTarget,
+	camera(window* w, vec3 camPos, vec3 camTarget,
 		float left, float right, float bot, float top, float nearz, float farz
 	);
 	~camera();
@@ -27,6 +32,9 @@ public:
 	virtual void update(float deltaSec);
 
 	vec3 getCamPos() { return camPos; };
+
+private:
+	void inputController(float deltaSec);
 };
 #endif
 

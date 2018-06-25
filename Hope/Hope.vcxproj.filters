@@ -25,6 +25,9 @@
     <Filter Include="Resource Files\stdImageLibrary">
       <UniqueIdentifier>{205cf4c5-f4b1-4295-aacd-c8f71861e40c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Controllers">
+      <UniqueIdentifier>{97bb2460-73db-4173-b40f-9ce28763079c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\glad.c">

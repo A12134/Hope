@@ -27,8 +27,9 @@ void game::initCam()
 {
 	// initilize Camera data
 	gameCam = new camera(
-		glm::vec3(0.0f, 10.0f, -10.0f),	// camera position
-		glm::vec3(0.0f, 10.0f, 0.0f),		// camera target
+		gameWindow,
+		glm::vec3(0.0f, 10.0f, -10.0f),		// camera position
+		glm::vec3(0.0f, 0.0f, 0.0f),		// camera target
 		60.0f,								// field of view angle in degrees
 		1024.0f,							// width
 		800.0f,								// height
@@ -148,6 +149,7 @@ void game::SetCurrentState(EGameState state)
 void game::StartStateUpdate(float deltaSeconds)
 {
 	testModel->update(deltaSeconds);
+	gameCam->update(deltaSeconds);
 }
 
 void game::PlayStateUpdate(float deltaSeconds)
