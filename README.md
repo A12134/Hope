@@ -1,5 +1,5 @@
 # Hope
-**Custom opengl game engine - critical bug free, compilable and runable source files**  
+**Custom opengl game engine**  
 ### Used Library:  
 [GLAD](http://glad.dav1d.de/)      - Opengl Loading Library  
 [GLFW](http://www.glfw.org/)      - Opengl API  
