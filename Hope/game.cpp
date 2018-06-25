@@ -148,7 +148,7 @@ void game::SetCurrentState(EGameState state)
 
 void game::StartStateUpdate(float deltaSeconds)
 {
-	testModel->update(deltaSeconds);
+	//testModel->update(deltaSeconds);
 	gameCam->update(deltaSeconds);
 }
 

@@ -8,7 +8,14 @@ class camera :
 {
 private:
 	float cameraSpeed;
+	float cameraSensitivity;
 
+	vec2 LastFrameMousePos;
+	double mouseXLast, mouseYLast;
+
+	static bool changeViewAngle;
+
+	double yaw, pitch;
 protected:
 	vec3 camPos;
 	vec3 camTarget;
@@ -17,7 +24,8 @@ protected:
 	vec3 UpVector;
 	vec3 targetToPos;
 	vec3 camFront;
-	
+public:
+	static double mouseXNew, mouseYNew;
 public:
 	camera(window* w, vec3 camPos, vec3 camTarget,
 		float fov, float width, float height, float nearz, float farz
@@ -35,6 +43,12 @@ public:
 
 private:
 	void inputController(float deltaSec);
+
+public:
+
+	// callbacks 
+	static void getMousePosition_CallBack(GLFWwindow* window, double _mouseX, double _mouseY);
+	static void getMouseButton_CallBack(GLFWwindow* window, int button, int action, int mods);
 };
 #endif
 

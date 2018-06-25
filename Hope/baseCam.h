@@ -19,7 +19,7 @@ public:
 	// fov: degrees
 	baseCam(window* _w, float fov, float width, float height, float nearz, float farz);
 	// orthographic projection
-	baseCam(window* _w, float left, float right, float bot, float top, float near, float far);
+	baseCam(window* _w, float left, float right, float bot, float top, float nearz, float farz);
 	~baseCam();
 
 	mat4 getProjectionMatrix() { return projection; }
