@@ -6,9 +6,10 @@ model::model(textureManager* _textureManager, std::string materialName, LogManag
 {
 	this->engineLog = engineLog;
 	this->texManager = _textureManager;
-	mmaterial.name = materialName;
+	//mmaterial.name = materialName;
 	//loadModel(filePath);
 	LODIndexTracker = 0;
+	modelMat = this->texManager->createNewMaterialSet(materialName);
 }
 
 model::~model()
@@ -88,7 +89,7 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 {
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
-	vector<Texture> textures;
+	//vector<Texture> textures;
 
 	// processing vertices, normals and texCoords
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -135,29 +136,69 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 	}
 
 	// TODO processing Materials
-	Material meshMats;
+	Material* tmp = nullptr;
 	if (mesh->mMaterialIndex >= 0)
 	{
 		
 		aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
 		// diffuse maps
-		loadMaterialTextures(material, aiTextureType_DIFFUSE, E_TEXTURE_TYPE::DIFFUSE_MAP, &meshMats);
+		texManager->loadTextureFromModel(
+			modelName,						// directory of the texture
+			mesh->mName.C_Str(),			// the name of the mesh
+			modelMat,						// materialSet
+			material,						// aiMaterial
+			aiTextureType_DIFFUSE,			// type of the texture used by ASSIMP
+			E_TEXTURE_TYPE::DIFFUSE_MAP,	// type of the texture used by this Engine
+			tmp								// material holder
+		);
+		//loadMaterialTextures(material, aiTextureType_DIFFUSE, E_TEXTURE_TYPE::DIFFUSE_MAP, &meshMats);
+
 		// specular maps
-		loadMaterialTextures(material, aiTextureType_SPECULAR, E_TEXTURE_TYPE::SPECULAR_MAP, &meshMats);
+		texManager->loadTextureFromModel(
+			modelName,						// directory of the texture
+			mesh->mName.C_Str(),			// the name of the mesh
+			modelMat,						// materialSet
+			material,						// aiMaterial
+			aiTextureType_SPECULAR,			// type of the texture used by ASSIMP
+			E_TEXTURE_TYPE::SPECULAR_MAP,	// type of the texture used by this Engine
+			tmp								// material holder
+		);
+		//loadMaterialTextures(material, aiTextureType_SPECULAR, E_TEXTURE_TYPE::SPECULAR_MAP, &meshMats);
+
 		// normal maps
-		loadMaterialTextures(material, aiTextureType_NORMALS, E_TEXTURE_TYPE::NORMAL_MAP, &meshMats);
+		texManager->loadTextureFromModel(
+			modelName,						// directory of the texture
+			mesh->mName.C_Str(),			// the name of the mesh
+			modelMat,						// materialSet
+			material,						// aiMaterial
+			aiTextureType_NORMALS,			// type of the texture used by ASSIMP
+			E_TEXTURE_TYPE::NORMAL_MAP,		// type of the texture used by this Engine
+			tmp								// material holder
+		);
+		//loadMaterialTextures(material, aiTextureType_NORMALS, E_TEXTURE_TYPE::NORMAL_MAP, &meshMats);
+
 		// ambient maps
-		loadMaterialTextures(material, aiTextureType_AMBIENT, E_TEXTURE_TYPE::AMBIENT_MAP, &meshMats);
+		texManager->loadTextureFromModel(
+			modelName,						// directory of the texture
+			mesh->mName.C_Str(),			// the name of the mesh
+			modelMat,						// materialSet
+			material,						// aiMaterial
+			aiTextureType_AMBIENT,			// type of the texture used by ASSIMP
+			E_TEXTURE_TYPE::AMBIENT_MAP,	// type of the texture used by this Engine
+			tmp								// material holder
+		);
+		//loadMaterialTextures(material, aiTextureType_AMBIENT, E_TEXTURE_TYPE::AMBIENT_MAP, &meshMats);
 	}
 
 	//texManager->addMaterial(&mmaterial);
 
 	 
 
-	return new class mesh(vertices, indices, meshMats.textureSet, engineLog);
+	return new class mesh(&vertices, &indices, &tmp->textureSet, engineLog);
 	
 }
 
+/*
 void model::loadMaterialTextures(aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE t_type, Material* materials)
 {
 	vector<Texture> textures;
@@ -174,3 +215,4 @@ void model::loadMaterialTextures(aiMaterial * mat, aiTextureType type, E_TEXTURE
 		//mmaterial.textureSet.push_back(_texture);
 	}
 }
+*/

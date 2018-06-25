@@ -26,6 +26,53 @@ void textureManager::createNewMaterial(std::string name)
 	Mats.push_back(&newMaterial);
 }
 
+Materials* textureManager::createNewMaterialSet(std::string name)
+{
+	for (unsigned int i = 0; i < MatSets.size(); i++)
+	{
+		if (MatSets.at(i).name == name)
+		{
+			engineLog->writeLog("Warning: Material " + name + " already exist\n");
+			return &MatSets.at(i);
+		}
+	}
+	MatSets.push_back(Materials(name));
+	return &MatSets.back();
+}
+
+void textureManager::loadTextureFromModel(std::string directory, std::string matName, Materials * set, aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE t_type, Material* tmp)
+{
+	for (unsigned int i = 0; i < set->materialSet.size(); i++)
+	{
+		if (set->materialSet.at(i).name == matName)
+		{
+			tmp = &set->materialSet.at(i);
+			break;
+		}
+	}
+	
+	if (!tmp)
+	{
+		set->materialSet.push_back(Material());
+		tmp = &set->materialSet.back();
+		tmp->name = matName;
+	}
+
+	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+	{
+		aiString str;
+		mat->GetTexture(type, i, &str);
+		Texture _texture;
+		std::string filePath = directory + str.C_Str();
+		texture* tex = new texture(filePath.c_str(), TEX_PARA::E_WRAP_REPEAT, TEX_PARA::E_FILTER_LINEAR_MIPMAP_LINEAR, engineLog);
+		_texture.id = tex->getTexture();
+		_texture.type = generateTexName(tmp, t_type);
+		tmp->textureSet.push_back(_texture);
+		delete tex;
+		tex = nullptr;
+	}
+}
+
 void textureManager::addTexture(std::string materialName, const char * texturePath, E_TEXTURE_TYPE textureType, TEX_PARA warpMethod, TEX_PARA filterMethod)
 {
 	Material* mat = findMaterial(materialName);
@@ -69,11 +116,6 @@ void textureManager::addTexture(std::string materialName, const char * texturePa
 	mat->textureSet.push_back(newTexture);
 }
 
-void textureManager::addMaterial(Material * mat)
-{
-	Mats.push_back(mat);
-}
-
 Material * textureManager::findMaterial(std::string materialName)
 {
 	for (unsigned int i = 0; i < Mats.size(); i++)
@@ -83,6 +125,19 @@ Material * textureManager::findMaterial(std::string materialName)
 			return Mats.at(i);
 		}
 	}
+	return nullptr;
+}
+
+Materials * textureManager::findMatSet(std::string name)
+{
+	for (unsigned int i = 0; i < MatSets.size(); i++)
+	{
+		if (MatSets.at(i).name == name)
+		{
+			return &MatSets.at(i);
+		}
+	}
+	return nullptr;
 	return nullptr;
 }
 

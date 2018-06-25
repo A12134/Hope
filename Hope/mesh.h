@@ -26,16 +26,16 @@ class mesh
 {
 private:
 	// Mesh Data
-	vector<Vertex> vertices;
-	vector<unsigned int> indices;
-	vector<Texture> textures;
+	vector<Vertex>* vertices;
+	vector<unsigned int>* indices;
+	vector<Texture>* textures;
 	unsigned int VAO, VBO, EBO;
 
 
 	// log pointer
 	LogManager* engineLog;
 public:
-	mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures, LogManager* engineLog);
+	mesh(vector<Vertex>* vertices, vector<unsigned int>* indices, vector<Texture>* textures, LogManager* engineLog);
 	~mesh();
 
 public:
