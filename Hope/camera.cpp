@@ -32,7 +32,7 @@ camera::~camera()
 mat4 camera::getViewMatrix()
 {
 	mat4 view = mat4(1);
-	view = glm::translate(view, this->camPos);
+	view = glm::lookAt(camPos, camTarget, camUp);
 	return view;
 }
 

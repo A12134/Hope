@@ -27,9 +27,9 @@ void game::initCam()
 {
 	// initilize Camera data
 	gameCam = new camera(
-		glm::vec3(0.0f, -14.0f, -10.0f),	// camera position
-		glm::vec3(0.0f, -45.0f, 0.0f),		// camera target
-		30.0f,								// field of view angle in degrees
+		glm::vec3(0.0f, 10.0f, -10.0f),	// camera position
+		glm::vec3(0.0f, 10.0f, 0.0f),		// camera target
+		60.0f,								// field of view angle in degrees
 		1024.0f,							// width
 		800.0f,								// height
 		0.1f,								// near plane
