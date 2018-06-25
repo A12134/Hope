@@ -2,13 +2,16 @@
 #include <iostream>
 
 
-mesh::mesh(vector<Vertex>* vertices, vector<unsigned int>* indices, vector<Texture>* textures, LogManager* engineLog)
+mesh::mesh(vector<Vertex> vertices, vector<unsigned int> indices, textureManager* texManager, int SetID, int matID, LogManager* engineLog)
 {
 	this->engineLog = engineLog;
 
 	this->vertices = vertices;
 	this->indices = indices;
-	this->textures = textures;
+	this->texManager = texManager;
+
+	this->setID = SetID;
+	this->matID = matID;
 
 	setupMesh();
 }
@@ -21,7 +24,7 @@ void mesh::render(shaderProgram * shaderPro, mat4 projection, mat4 model, mat4 v
 {
 	shaderPro->useThis();
 	mat4 matrices = projection * view * model;
-	
+	vector<Texture>* textures = texManager->getTextrueSet(setID, matID);
 	// load in texture data
 	for (unsigned int i = 0; i < textures->size(); i++)
 	{
@@ -36,7 +39,7 @@ void mesh::render(shaderProgram * shaderPro, mat4 projection, mat4 model, mat4 v
 	glUniformMatrix4fv(transformationLoc, 1, GL_FALSE, value_ptr(matrices));
 
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, indices->size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
 	// set back to default
@@ -54,10 +57,10 @@ void mesh::setupMesh()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 
-	glBufferData(GL_ARRAY_BUFFER, vertices->size() * sizeof(Vertex), &vertices->front(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices.front(), GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices->size() * sizeof(unsigned int), &indices->front(), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices.front(), GL_STATIC_DRAW);
 
 	// passing in vertex position to buffer
 	

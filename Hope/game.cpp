@@ -26,18 +26,36 @@ void game::initTexture()
 void game::initCam()
 {
 	// initilize Camera data
+	gameCam = new camera(
+		glm::vec3(0.0f, -14.0f, -10.0f),	// camera position
+		glm::vec3(0.0f, -45.0f, 0.0f),		// camera target
+		30.0f,								// field of view angle in degrees
+		1024.0f,							// width
+		800.0f,								// height
+		0.1f,								// near plane
+		100.0f								// far plane
+		 );
 }
 
 void game::initModel()
 {
 	// initilize Model data
-
+	transformation transform;
+	transform.position = glm::vec3(0.0f, 0.0f, 0.0f);
+	transform.rotation = 0.0f;
+	transform.rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
+	transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
+	
+	model * nano = new model(mTextureManager, "NanoSuitMat", engineLog);
+	nano->addNewLevelLOD("assets//nanosuit.obj", 1000);
+	
+	testModel = new nanoSuit(transform, mShaderManager->getShader("NanoSuitShader"), nano, engineLog);
 }
 
 void game::addShader()
 {
 	// adding shaders
-	//mShaderManager->createNewShader("vertexShader.glsl", "fragmentShader.glsl", "NanoSuitShader");
+	mShaderManager->createNewShader("vertexShader.glsl", "fragmentShader.glsl", "NanoSuitShader");
 }
 
 game::game(window * RenderWindow, LogManager* engineLog)
@@ -127,8 +145,9 @@ void game::SetCurrentState(EGameState state)
 	this->currentState = state;
 }
 
-void game::StartStateUpdate(float deltaSecondes)
+void game::StartStateUpdate(float deltaSeconds)
 {
+	testModel->update(deltaSeconds);
 }
 
 void game::PlayStateUpdate(float deltaSeconds)
@@ -145,6 +164,7 @@ void game::EndStateUpdate(float deltaSeconds)
 
 void game::StartStateRender()
 {
+	testModel->render(gameCam);
 }
 
 void game::PlayStateRender()

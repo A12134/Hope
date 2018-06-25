@@ -67,9 +67,14 @@ public:
 
 public:
 	void createNewMaterial(std::string name);
-	Materials* createNewMaterialSet(std::string name);
+	int createNewMaterialSet(std::string name);
 
-	void loadTextureFromModel(std::string directory, std::string matName, Materials* set, aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE T_type, Material* tmp);
+	std::vector<Materials>* getMatSets() { return &MatSets; }
+	Materials* getMatSet(int id) { return &MatSets.at(id); }
+
+	std::vector<Texture>* getTextrueSet(int SetID, int MatID) { return &MatSets.at(SetID).materialSet.at(MatID).textureSet; }
+
+	void loadTextureFromModel(std::string directory, std::string matName, Materials* set, aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE T_type, int* tmp);
 
 	void addTexture(std::string materialName, const char* texturePath, E_TEXTURE_TYPE textureType, TEX_PARA warpMethod, TEX_PARA filterMethod);
 	void addTexture(std::string materialName, const char* texturePath, E_TEXTURE_TYPE textureType, TEX_PARA warpMethod_s, TEX_PARA warpMethod_t, TEX_PARA filterMethod_min, TEX_PARA filterMethod_mag);

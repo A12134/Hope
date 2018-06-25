@@ -1,8 +1,0 @@
-2018-6-20
-Total virtual Memory: 18203774976	virtual Memory used: 9434316800	engine used: 59121664	virtual Memory Left: 8769458176
-Total physical Memory: 17130033152	physical Memory used: 7556509696		engine used: 60231680	physical Mmeory Left: 9573523456
---------------------------------------------
-Linking shader program.
-Error: load image failed*0
---------------------------------------------
-Log Ended.

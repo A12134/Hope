@@ -26,36 +26,36 @@ void textureManager::createNewMaterial(std::string name)
 	Mats.push_back(&newMaterial);
 }
 
-Materials* textureManager::createNewMaterialSet(std::string name)
+int textureManager::createNewMaterialSet(std::string name)
 {
 	for (unsigned int i = 0; i < MatSets.size(); i++)
 	{
 		if (MatSets.at(i).name == name)
 		{
 			engineLog->writeLog("Warning: Material " + name + " already exist\n");
-			return &MatSets.at(i);
+			return i;
 		}
 	}
 	MatSets.push_back(Materials(name));
-	return &MatSets.back();
+	return MatSets.size()-1;
 }
 
-void textureManager::loadTextureFromModel(std::string directory, std::string matName, Materials * set, aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE t_type, Material* tmp)
+void textureManager::loadTextureFromModel(std::string directory, std::string matName, Materials * set, aiMaterial * mat, aiTextureType type, E_TEXTURE_TYPE t_type, int* tmp)
 {
 	for (unsigned int i = 0; i < set->materialSet.size(); i++)
 	{
 		if (set->materialSet.at(i).name == matName)
 		{
-			tmp = &set->materialSet.at(i);
+			*tmp = i;
 			break;
 		}
 	}
 	
-	if (!tmp)
+	if (*tmp == -1)
 	{
 		set->materialSet.push_back(Material());
-		tmp = &set->materialSet.back();
-		tmp->name = matName;
+		*tmp = set->materialSet.size()-1;
+		set->materialSet.at(set->materialSet.size()-1).name = matName;
 	}
 
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -66,9 +66,9 @@ void textureManager::loadTextureFromModel(std::string directory, std::string mat
 		std::string filePath = directory + str.C_Str();
 		texture* tex = new texture(filePath.c_str(), TEX_PARA::E_WRAP_REPEAT, TEX_PARA::E_FILTER_LINEAR_MIPMAP_LINEAR, engineLog);
 		_texture.id = tex->getTexture();
-		_texture.type = generateTexName(tmp, t_type);
-		tmp->textureSet.push_back(_texture);
-		delete tex;
+		_texture.type = generateTexName(&set->materialSet.at(*tmp), t_type);
+		set->materialSet.at(*tmp).textureSet.push_back(_texture);
+
 		tex = nullptr;
 	}
 }

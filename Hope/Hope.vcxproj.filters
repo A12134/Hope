@@ -75,6 +75,9 @@
     <ClCompile Include="stb_image.cpp">
       <Filter>Resource Files\stdImageLibrary</Filter>
     </ClCompile>
+    <ClCompile Include="nanoSuit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>Resource Files\stdImageLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="nanoSuit.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

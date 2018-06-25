@@ -27,7 +27,7 @@ private:
 	LogManager* engineLog;
 	//Material mmaterial;
 	textureManager* texManager;
-	Materials* modelMat;
+	int modelMatID;
 
 public:
 	model(textureManager* _textureManager, std::string materialName, LogManager* engineLog);

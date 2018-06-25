@@ -1,9 +1,0 @@
-2018-6-20
-Total virtual Memory: 18203774976	virtual Memory used: 9548128256	engine used: 35876864	virtual Memory Left: 8655646720
-Total physical Memory: 17130033152	physical Memory used: 7569256448		engine used: 35069952	physical Mmeory Left: 9560776704
---------------------------------------------
-Linking shader program.
-Error: ASSIMP:: Unable to open file "assetsscene.fbx".
-
---------------------------------------------
-Log Ended.

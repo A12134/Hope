@@ -139,6 +139,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="model.cpp" />
+    <ClCompile Include="nanoSuit.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shaderManager.cpp" />
     <ClCompile Include="shaderProgram.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
+    <ClInclude Include="nanoSuit.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shaderManager.h" />
     <ClInclude Include="shaderProgram.h" />

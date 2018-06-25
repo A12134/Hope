@@ -1,4 +1,3 @@
-
 #ifndef MESH_H
 #define MESH_H
 
@@ -26,16 +25,17 @@ class mesh
 {
 private:
 	// Mesh Data
-	vector<Vertex>* vertices;
-	vector<unsigned int>* indices;
-	vector<Texture>* textures;
-	unsigned int VAO, VBO, EBO;
+	vector<Vertex> vertices;
+	vector<unsigned int> indices;
 
+	unsigned int VAO, VBO, EBO;
+	textureManager* texManager;
+	int setID, matID;
 
 	// log pointer
 	LogManager* engineLog;
 public:
-	mesh(vector<Vertex>* vertices, vector<unsigned int>* indices, vector<Texture>* textures, LogManager* engineLog);
+	mesh(vector<Vertex> vertices, vector<unsigned int> indices, textureManager* texManager, int SetID, int matID, LogManager* engineLog);
 	~mesh();
 
 public:

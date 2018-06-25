@@ -9,7 +9,7 @@ model::model(textureManager* _textureManager, std::string materialName, LogManag
 	//mmaterial.name = materialName;
 	//loadModel(filePath);
 	LODIndexTracker = 0;
-	modelMat = this->texManager->createNewMaterialSet(materialName);
+	modelMatID = this->texManager->createNewMaterialSet(materialName);
 }
 
 model::~model()
@@ -136,7 +136,7 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 	}
 
 	// TODO processing Materials
-	Material* tmp = nullptr;
+	int tmpID = -1;
 	if (mesh->mMaterialIndex >= 0)
 	{
 		
@@ -145,11 +145,11 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 		texManager->loadTextureFromModel(
 			modelName,						// directory of the texture
 			mesh->mName.C_Str(),			// the name of the mesh
-			modelMat,						// materialSet
+			texManager->getMatSet(modelMatID),						// materialSet
 			material,						// aiMaterial
 			aiTextureType_DIFFUSE,			// type of the texture used by ASSIMP
 			E_TEXTURE_TYPE::DIFFUSE_MAP,	// type of the texture used by this Engine
-			tmp								// material holder
+			&tmpID								// material holder
 		);
 		//loadMaterialTextures(material, aiTextureType_DIFFUSE, E_TEXTURE_TYPE::DIFFUSE_MAP, &meshMats);
 
@@ -157,11 +157,11 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 		texManager->loadTextureFromModel(
 			modelName,						// directory of the texture
 			mesh->mName.C_Str(),			// the name of the mesh
-			modelMat,						// materialSet
+			texManager->getMatSet(modelMatID),						// materialSet
 			material,						// aiMaterial
 			aiTextureType_SPECULAR,			// type of the texture used by ASSIMP
 			E_TEXTURE_TYPE::SPECULAR_MAP,	// type of the texture used by this Engine
-			tmp								// material holder
+			&tmpID					// material holder
 		);
 		//loadMaterialTextures(material, aiTextureType_SPECULAR, E_TEXTURE_TYPE::SPECULAR_MAP, &meshMats);
 
@@ -169,11 +169,11 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 		texManager->loadTextureFromModel(
 			modelName,						// directory of the texture
 			mesh->mName.C_Str(),			// the name of the mesh
-			modelMat,						// materialSet
+			texManager->getMatSet(modelMatID),						// materialSet
 			material,						// aiMaterial
 			aiTextureType_NORMALS,			// type of the texture used by ASSIMP
 			E_TEXTURE_TYPE::NORMAL_MAP,		// type of the texture used by this Engine
-			tmp								// material holder
+			&tmpID								// material holder
 		);
 		//loadMaterialTextures(material, aiTextureType_NORMALS, E_TEXTURE_TYPE::NORMAL_MAP, &meshMats);
 
@@ -181,11 +181,11 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 		texManager->loadTextureFromModel(
 			modelName,						// directory of the texture
 			mesh->mName.C_Str(),			// the name of the mesh
-			modelMat,						// materialSet
+			texManager->getMatSet(modelMatID),						// materialSet
 			material,						// aiMaterial
 			aiTextureType_AMBIENT,			// type of the texture used by ASSIMP
 			E_TEXTURE_TYPE::AMBIENT_MAP,	// type of the texture used by this Engine
-			tmp								// material holder
+			&tmpID								// material holder
 		);
 		//loadMaterialTextures(material, aiTextureType_AMBIENT, E_TEXTURE_TYPE::AMBIENT_MAP, &meshMats);
 	}
@@ -194,7 +194,7 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 
 	 
 
-	return new class mesh(&vertices, &indices, &tmp->textureSet, engineLog);
+	return new class mesh(vertices, indices, texManager, modelMatID, tmpID, engineLog);
 	
 }
 
