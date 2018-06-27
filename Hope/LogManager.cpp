@@ -118,6 +118,12 @@ LogManager::~LogManager()
 
 void LogManager::errorExit()
 {
+	int msgBox = MessageBox(
+		NULL, 
+		(LPCSTR)L"Some thing went wrong, a log has been generated!",
+		(LPCSTR)L"Engine force shutdown",
+		MB_OK
+		);
 	delete this;
 	exit(-1);
 }

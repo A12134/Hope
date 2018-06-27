@@ -21,6 +21,12 @@ mesh::~mesh()
 
 void mesh::render(shaderProgram * shaderPro, mat4 projection, mat4 model, mat4 view)
 {
+	if (!mLightManager)
+	{
+		engineLog->writeLog("Error: the mesh does not bind with the lightManager, engineCore fail.\n");
+		engineLog->errorExit();
+	}
+
 	shaderPro->useThis();
 	mat4 matrices = projection * view * model;
 	vector<Texture>* textures = texManager->getTextrueSet(setID, matID);

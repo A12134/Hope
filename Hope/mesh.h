@@ -10,6 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include "textureManager.h"
+#include "lightManager.h"
 
 using namespace glm;
 using namespace std;
@@ -24,6 +25,10 @@ struct Vertex
 class mesh
 {
 private:
+	// contains all light info in the scene
+	static lightManager* mLightManager;
+
+private:
 	// Mesh Data
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
@@ -37,6 +42,8 @@ private:
 public:
 	mesh(vector<Vertex> vertices, vector<unsigned int> indices, textureManager* texManager, int SetID, int matID, LogManager* engineLog);
 	~mesh();
+
+	static void bingLightManager(lightManager* _lm) { mLightManager = _lm; }
 
 public:
 	void render(shaderProgram* shader, mat4 projection, mat4 model, mat4 view);
