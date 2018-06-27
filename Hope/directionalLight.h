@@ -35,6 +35,8 @@ public:
 	~directionalLight();
 
 	DirectionalLight getParam() { return param; }
+
+	virtual void update(float deltaSec) override {};
 };
 #endif
 

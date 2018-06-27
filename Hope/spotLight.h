@@ -34,5 +34,7 @@ public:
 	~spotLight();
 
 	SpotLight getParam() { return param; };
+
+	virtual void update(float deltaSec) override {};
 };
 #endif
