@@ -10,6 +10,8 @@ void game::init()
 	initCam();
 	initModel();
 
+
+
 	currentState = EGameState::E_START;
 }
 
