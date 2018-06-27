@@ -12,6 +12,13 @@ using namespace std;
 
 struct transformation
 {
+	transformation() {};
+	transformation(vec3 _position, float _rotation, vec3 _scale) :
+		position(_position),
+		rotation(_rotation),
+		scale(_scale),
+		rotationAxis(vec3(0.0f, 1.0f, 0.0f))
+	{};
 	vec3 position;
 	float rotation;
 	vec3 scale;
@@ -29,6 +36,7 @@ protected:
 	model* mesh;
 
 public:
+	gameObject();
 	gameObject(transformation transform, shaderProgram* sp, model* meshes, LogManager* engineLog);
 	~gameObject();
 

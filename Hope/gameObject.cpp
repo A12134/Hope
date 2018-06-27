@@ -3,6 +3,10 @@
 
 
 
+gameObject::gameObject()
+{
+}
+
 gameObject::gameObject(transformation transform, shaderProgram* sp, model* meshes, LogManager* engineLog)
 {
 	this->transform = transform;

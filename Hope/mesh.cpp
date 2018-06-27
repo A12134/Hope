@@ -1,7 +1,6 @@
 #include "mesh.h"
 #include <iostream>
 
-
 mesh::mesh(vector<Vertex> vertices, vector<unsigned int> indices, textureManager* texManager, int SetID, int matID, LogManager* engineLog)
 {
 	this->engineLog = engineLog;

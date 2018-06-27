@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -133,16 +133,20 @@
     <ClCompile Include="..\glad.c" />
     <ClCompile Include="baseCam.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="directionalLight.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="lightManager.cpp" />
     <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mesh.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="nanoSuit.cpp" />
+    <ClCompile Include="pointLight.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="shaderManager.cpp" />
     <ClCompile Include="shaderProgram.cpp" />
+    <ClCompile Include="spotLight.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="textureManager.cpp" />
@@ -152,15 +156,19 @@
     <ClInclude Include="baseCam.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="ColorTable.h" />
+    <ClInclude Include="directionalLight.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameObject.h" />
+    <ClInclude Include="lightManager.h" />
     <ClInclude Include="LogManager.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="nanoSuit.h" />
+    <ClInclude Include="pointLight.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="shaderManager.h" />
     <ClInclude Include="shaderProgram.h" />
+    <ClInclude Include="spotLight.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="textureManager.h" />

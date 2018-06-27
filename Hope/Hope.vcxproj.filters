@@ -28,6 +28,9 @@
     <Filter Include="Resource Files\Controllers">
       <UniqueIdentifier>{97bb2460-73db-4173-b40f-9ce28763079c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Lights">
+      <UniqueIdentifier>{9b703f19-7397-451d-a877-8fbeded704ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\glad.c">
@@ -81,6 +84,18 @@
     <ClCompile Include="nanoSuit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pointLight.cpp">
+      <Filter>Resource Files\Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="spotLight.cpp">
+      <Filter>Resource Files\Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="directionalLight.cpp">
+      <Filter>Resource Files\Lights</Filter>
+    </ClCompile>
+    <ClCompile Include="lightManager.cpp">
+      <Filter>Resource Files\Lights</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="window.h">
@@ -130,6 +145,18 @@
     </ClInclude>
     <ClInclude Include="nanoSuit.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pointLight.h">
+      <Filter>Resource Files\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="lightManager.h">
+      <Filter>Resource Files\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="directionalLight.h">
+      <Filter>Resource Files\Lights</Filter>
+    </ClInclude>
+    <ClInclude Include="spotLight.h">
+      <Filter>Resource Files\Lights</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
