@@ -55,7 +55,7 @@ int main()
 		float timeSinceStart = (float)glfwGetTime();
 		float deltaTime = timeSinceStart - oldTimeSinceStart;
 		oldTimeSinceStart = timeSinceStart;
-		mainWindow->clearColor(COLOR_BLACK, 1.0f);
+		mainWindow->clearColor(COLOR_WHITE*0.0f, 1.0f);
 		mainWindow->clearBuffers();
 
 		// update function
