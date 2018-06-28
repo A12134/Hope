@@ -59,6 +59,7 @@ void game::addShader()
 {
 	// adding shaders
 	mShaderManager->createNewShader("vertexShader.glsl", "fragmentShader.glsl", "NanoSuitShader");
+	mShaderManager->createNewShader("vertexShader.glsl", "spriteFragmentShader.glsl", "SpriteShader");
 }
 
 game::game(window * RenderWindow, LogManager* engineLog)

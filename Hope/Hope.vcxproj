@@ -147,6 +147,7 @@
     <ClCompile Include="shaderManager.cpp" />
     <ClCompile Include="shaderProgram.cpp" />
     <ClCompile Include="spotLight.cpp" />
+    <ClCompile Include="sprite.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="textureManager.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="shaderManager.h" />
     <ClInclude Include="shaderProgram.h" />
     <ClInclude Include="spotLight.h" />
+    <ClInclude Include="sprite.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="textureManager.h" />
@@ -177,6 +179,7 @@
   <ItemGroup>
     <None Include="fragmentShader.glsl" />
     <None Include="geometryShader.glsl" />
+    <None Include="spriteFragmentShader.glsl" />
     <None Include="vertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
