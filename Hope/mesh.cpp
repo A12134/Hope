@@ -46,6 +46,7 @@ void mesh::render(shaderProgram * shaderPro, mat4 projection, mat4 model, mat4 v
 	glUniformMatrix4fv(transformationLoc, 1, GL_FALSE, value_ptr(matrices));
 
 	shaderPro->setUniformMatrix4x4fv("model", model, GL_FALSE);
+	vec3 viewPOS = vec3(view * vec4(viewPos,1.0f));
 	shaderPro->setUniform3fv("viewPos", viewPos);
 
 	DirectionalLight light = mLightManager->getDirectionalLights()->at(0)->getParam();

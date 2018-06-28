@@ -15,7 +15,7 @@ void game::init()
 	initCam();
 	initModel();
 
-	lm->addNewDirectionalLight(glm::vec3(-5.0f, -100.0f, -8.0f), COLOR_WHITE*0.04f, COLOR_WHITE*0.1f, COLOR_WHITE*0.8f);
+	lm->addNewDirectionalLight(glm::vec3(0.0f, 0.0f, 1.0f), COLOR_WHITE*0.0f, COLOR_WHITE*0.5f, glm::vec3(1.0f, 0.9854f, 0.984f)*0.4f);
 
 	currentState = EGameState::E_START;
 }
@@ -50,7 +50,7 @@ void game::initModel()
 	// initilize Model data
 	transformation transform;
 	transform.position = glm::vec3(0.0f, 0.0f, 0.0f);
-	transform.rotation = 0.0f;
+	transform.rotation = 180.0f;
 	transform.rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
 	transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	
