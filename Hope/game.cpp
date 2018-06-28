@@ -1,16 +1,21 @@
 #include "game.h"
 #include "model.h"
 
+
 void game::init()
 {
 	//TODO initialize Game parameters
+	lm = new lightManager();
+
+	mesh::bingLightManager(lm);
+
 	initShaders();
 	addShader();
 	initTexture();
 	initCam();
 	initModel();
 
-
+	lm->addNewDirectionalLight(glm::vec3(0.0, -10.0f, -3.0f), COLOR_BLACK, COLOR_WHITE*0.2f, COLOR_WHITE*0.3f);
 
 	currentState = EGameState::E_START;
 }

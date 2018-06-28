@@ -33,7 +33,7 @@ void model::render(glm::vec3 pos, camera * cam, shaderProgram * sp, glm::mat4 mo
 	
 	for (unsigned int i = 0; i < LODmeshes.at(LODIndexTracker).size(); i++)
 	{
-		LODmeshes.at(LODIndexTracker).at(i)->render(sp, cam->getProjectionMatrix(), model, cam->getViewMatrix());
+		LODmeshes.at(LODIndexTracker).at(i)->render(sp, cam->getProjectionMatrix(), model, cam->getViewMatrix(), cam->getCamPos());
 	}
 }
 
@@ -171,7 +171,7 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 			mesh->mName.C_Str(),			// the name of the mesh
 			texManager->getMatSet(modelMatID),						// materialSet
 			material,						// aiMaterial
-			aiTextureType_NORMALS,			// type of the texture used by ASSIMP
+			aiTextureType_HEIGHT,			// type of the texture used by ASSIMP
 			E_TEXTURE_TYPE::NORMAL_MAP,		// type of the texture used by this Engine
 			&tmpID								// material holder
 		);

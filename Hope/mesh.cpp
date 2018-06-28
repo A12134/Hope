@@ -1,6 +1,8 @@
 #include "mesh.h"
 #include <iostream>
 
+lightManager* mesh::mLightManager = nullptr;
+
 mesh::mesh(vector<Vertex> vertices, vector<unsigned int> indices, textureManager* texManager, int SetID, int matID, LogManager* engineLog)
 {
 	this->engineLog = engineLog;
@@ -19,7 +21,7 @@ mesh::~mesh()
 {
 }
 
-void mesh::render(shaderProgram * shaderPro, mat4 projection, mat4 model, mat4 view)
+void mesh::render(shaderProgram * shaderPro, mat4 projection, mat4 model, mat4 view, vec3 viewPos)
 {
 	if (!mLightManager)
 	{
@@ -42,6 +44,16 @@ void mesh::render(shaderProgram * shaderPro, mat4 projection, mat4 model, mat4 v
 	// load in overall matrix
 	unsigned int transformationLoc = glGetUniformLocation(shaderPro->getID(), "transform");
 	glUniformMatrix4fv(transformationLoc, 1, GL_FALSE, value_ptr(matrices));
+
+	shaderPro->setUniformMatrix4x4fv("model", model, GL_FALSE);
+	shaderPro->setUniform3fv("viewPos", viewPos);
+
+	DirectionalLight light = mLightManager->getDirectionalLights()->at(0)->getParam();
+
+	shaderPro->setUniform3fv("light.direction", light.direction);
+	shaderPro->setUniform3fv("light.ambient", light.ambient);
+	shaderPro->setUniform3fv("light.diffuse", light.diffuse);
+	shaderPro->setUniform3fv("light.specular", light.specular);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);

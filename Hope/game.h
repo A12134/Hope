@@ -6,6 +6,8 @@
 #include "shaderManager.h"
 #include "textureManager.h"
 #include "nanoSuit.h"
+#include "lightManager.h"
+#include "ColorTable.h"
 
 enum class EGameState 
 {
@@ -30,7 +32,7 @@ private:
 
 	camera* gameCam;
 	nanoSuit * testModel;
-
+	lightManager* lm;
 
 public:
 	// initialize Game parameters

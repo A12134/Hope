@@ -10,6 +10,7 @@
 class lightManager
 {
 private:
+
 	std::vector<spotLight*> mSpotLights;
 	std::vector<directionalLight*> mDirectionLights;
 	std::vector<pointLight*> mPointLights;

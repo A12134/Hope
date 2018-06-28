@@ -40,7 +40,8 @@ int main()
 	
 	// Enable MSAA
 	glEnable(GL_MULTISAMPLE);
-
+	// Enable Gamma Correction
+	glEnable(GL_FRAMEBUFFER_SRGB);
 	// window resize callback function
 	glfwSetFramebufferSizeCallback(glfwGetCurrentContext(), framebuffer_size_callback);
 
@@ -50,17 +51,18 @@ int main()
 	float oldTimeSinceStart = 0;
 	while (!glfwWindowShouldClose(mainWindow->getWindow()))
 	{
+		glDisable(GL_FRAMEBUFFER_SRGB);
 		float timeSinceStart = (float)glfwGetTime();
 		float deltaTime = timeSinceStart - oldTimeSinceStart;
 		oldTimeSinceStart = timeSinceStart;
-		mainWindow->clearColor(COLOR_WHITE * 0.8f, 1.0f);
+		mainWindow->clearColor(COLOR_BLACK, 1.0f);
 		mainWindow->clearBuffers();
 
 		// update function
 		mainGame->update(deltaTime);
 		// render function
 		mainGame->render();
-
+		glEnable(GL_FRAMEBUFFER_SRGB);
 		// swap Buffers
 		glfwSwapBuffers(mainWindow->getWindow());
 		glfwPollEvents();

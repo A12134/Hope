@@ -43,10 +43,10 @@ public:
 	mesh(vector<Vertex> vertices, vector<unsigned int> indices, textureManager* texManager, int SetID, int matID, LogManager* engineLog);
 	~mesh();
 
-	static void bingLightManager(lightManager* _lm) { mLightManager = _lm; }
+	static void bingLightManager(lightManager* _lm) { mesh::mLightManager = _lm; }
 
 public:
-	void render(shaderProgram* shader, mat4 projection, mat4 model, mat4 view);
+	void render(shaderProgram* shader, mat4 projection, mat4 model, mat4 view, vec3 viewPos);
 
 private:
 	void setupMesh();

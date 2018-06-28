@@ -1,9 +1,7 @@
 #include "pointLight.h"
-#include "gameObject.h"
 
 
-pointLight::pointLight(vec3 position, vec3 ambient, vec3 diffuse, vec3 specular, float constant, float linear, float quadratic):
-	gameObject(transformation(position, 0.0f, vec3(1.0f,1.0f,1.0f)), sp, debugmodel, engineLog)
+pointLight::pointLight(vec3 position, vec3 ambient, vec3 diffuse, vec3 specular, float constant, float linear, float quadratic)
 {
 	param.position = position;
 	param.ambient = ambient;
