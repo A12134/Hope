@@ -15,7 +15,7 @@ void game::init()
 	initCam();
 	initModel();
 
-	lm->addNewDirectionalLight(glm::vec3(0.0f, 0.0f, -1.0f), COLOR_BLACK, COLOR_WHITE, glm::vec3(1.0f, 0.9854f, 0.984f)*0.1f);
+	lm->addNewDirectionalLight(glm::vec3(0.0f, 0.0f, -1.0f), COLOR_WHITE*0.1f, COLOR_WHITE, glm::vec3(1.0f, 0.9854f, 0.984f));
 
 	currentState = EGameState::E_START;
 }
