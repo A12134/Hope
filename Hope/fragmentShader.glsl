@@ -31,7 +31,7 @@ struct SpotLight
 out vec4 FragColor;
 
 in vec3 FragPos;
-in vec3 ourColor;
+in vec3 n;
 in vec2 TexCoord;
 in mat3 TBN;
 in mat4 models;
