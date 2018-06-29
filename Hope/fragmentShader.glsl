@@ -62,7 +62,7 @@ vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)
 	float diff = max(dot(normal, lightDir), 0.0f);
 
 	vec3 reflectDir = reflect(-lightDir, normal);
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 0.8f);
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 0.32f);
 	vec3 diffuseMap =  (vec3(texture(Diffuse_0, TexCoord)) + vec3(texture(Diffuse_1, TexCoord)) + vec3(texture(Diffuse_2, TexCoord)) + vec3(texture(Diffuse_3, TexCoord)));
 	vec3 ambient = light.ambient * diffuseMap;
 	vec3 diffuse = light.diffuse * diff * diffuseMap;
@@ -70,19 +70,20 @@ vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)
 	vec3 specular = light.specular * spec * specularMap;
 
 	//return (max(dot(normal, lightDir), 0.0f));
-	return(ambient + diffuse + specular);
+	//return(ambient + diffuse + specular);
+	return(lightDir);
 }
 
 void main()
 {
-	vec3 normal = texture(Normal_0, TexCoord).rgb;
+	vec3 normal = vec3(texture(Normal_0, TexCoord));
 	normal = normalize(normal*2.0 - 1.0);
 	normal = normalize(TBN * normal);
 	//normal = mat3(transpose(inverse(models)))*normal;
 	//norm.y = -norm.y;
 	vec3 viewDir = normalize(viewPos - FragPos);
 	//float x = CalcDirLight(light, normal, viewDir);
-	//FragColor = vec4(CalcDirLight(light, normal, viewDir), 1.0f );
+	FragColor = vec4(CalcDirLight(light, normal, viewDir), 1.0f );
 	//FragColor = vec4(x,x,x,1.0f);
-	FragColor = vec4(normal, 1.0);
+	//FragColor = vec4(normal, 1.0);
 }
