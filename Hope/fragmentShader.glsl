@@ -62,7 +62,7 @@ vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)
 	float diff = max(dot(normal, lightDir), 0.0f);
 
 	vec3 reflectDir = reflect(-lightDir, normal);
-	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 0.4f);
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 0.8f);
 	vec3 diffuseMap =  (vec3(texture(Diffuse_0, TexCoord)) + vec3(texture(Diffuse_1, TexCoord)) + vec3(texture(Diffuse_2, TexCoord)) + vec3(texture(Diffuse_3, TexCoord)));
 	vec3 ambient = light.ambient * diffuseMap;
 	vec3 diffuse = light.diffuse * diff * diffuseMap;

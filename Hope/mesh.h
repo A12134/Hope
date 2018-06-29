@@ -20,6 +20,8 @@ struct Vertex
 	vec3 Position;
 	vec2 Normal;
 	vec2 TexCoords;
+	vec3 Tangents;
+	vec3 Bitangents;
 };
 
 class mesh
@@ -32,7 +34,6 @@ private:
 	// Mesh Data
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
-	vector<vec3> tangents;
 
 	unsigned int VAO, VBO, EBO;
 	textureManager* texManager;
@@ -41,7 +42,7 @@ private:
 	// log pointer
 	LogManager* engineLog;
 public:
-	mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<vec3> tangents, textureManager* texManager, int SetID, int matID, LogManager* engineLog);
+	mesh(vector<Vertex> vertices, vector<unsigned int> indices, textureManager* texManager, int SetID, int matID, LogManager* engineLog);
 	~mesh();
 
 	static void bingLightManager(lightManager* _lm) { mesh::mLightManager = _lm; }

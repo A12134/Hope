@@ -55,7 +55,7 @@ void model::addNewLevelLOD(const char * filePath, float maximumDistance)
 void model::loadModel(std::string path)
 {
 	Assimp::Importer import;
-	const aiScene * scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene * scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
@@ -110,6 +110,17 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 		vector.z = mesh->mNormals[i].z;
 		vertex.Normal = vector;
 
+		// processing tangents
+		vector.x = mesh->mTangents[i].x;
+		vector.y = mesh->mTangents[i].y;
+		vector.z = mesh->mTangents[i].z;
+		vertex.Tangents = vector;
+
+		// processing bitangents
+		vector.x = mesh->mBitangents[i].x;
+		vector.y = mesh->mBitangents[i].y;
+		vector.z = mesh->mBitangents[i].z;
+
 		// processing texture coords
 		if (mesh->mTextureCoords[0])
 		{
@@ -136,6 +147,7 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 		}
 	}
 
+	/*
 	// TODO calculate tangent and bitangent.
 	// for each three indices to form a face
 	for (unsigned int i = 0; i < indices.size(); i+=3)
@@ -177,7 +189,7 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 		// push back bitangent
 		tangents.push_back(bitangent);
 	}
-	
+	*/
 
 
 	// TODO processing Materials
@@ -239,7 +251,7 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 
 	 
 
-	return new class mesh(vertices, indices, tangents, texManager, modelMatID, tmpID, engineLog);
+	return new class mesh(vertices, indices, texManager, modelMatID, tmpID, engineLog);
 	
 }
 
