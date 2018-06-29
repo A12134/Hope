@@ -33,6 +33,7 @@ out vec4 FragColor;
 in vec3 FragPos;
 in vec3 ourColor;
 in vec2 TexCoord;
+in mat3 TBN;
 in mat4 models;
 
 uniform vec3 viewPos;
@@ -74,7 +75,9 @@ vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)
 
 void main()
 {
-	vec3 normal = normalize(vec3(texture(Normal_0, TexCoord))*2.0 - 1.0);
+	vec3 normal = texture(Normal_0, TexCoord).rgb;
+	normal = normalize(normal*2.0 - 1.0);
+	normal = normalize(TBN * normal);
 	//normal = mat3(transpose(inverse(models)))*normal;
 	//norm.y = -norm.y;
 	vec3 viewDir = normalize(viewPos - FragPos);

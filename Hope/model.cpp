@@ -89,6 +89,7 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 {
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
+	vector<vec3> tangents;
 	//vector<Texture> textures;
 
 	// processing vertices, normals and texCoords
@@ -134,6 +135,50 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 			indices.push_back(face.mIndices[j]);
 		}
 	}
+
+	// TODO calculate tangent and bitangent.
+	// for each three indices to form a face
+	for (unsigned int i = 0; i < indices.size(); i+=3)
+	{
+		// calculate edge1 and edge2
+		vec3 pos1 = vertices.at(indices.at(i)).Position;
+		vec3 pos2 = vertices.at(indices.at(i + 1)).Position;
+		vec3 pos3 = vertices.at(indices.at(i + 2)).Position;
+
+		vec3 edge1 = pos2 - pos1;
+		vec3 edge2 = pos3 - pos1;
+
+		// calculate deltaUV1 and deltaUV2
+		vec2 uv1 = vertices.at(indices.at(i)).TexCoords;
+		vec2 uv2 = vertices.at(indices.at(i + 1)).TexCoords;
+		vec2 uv3 = vertices.at(indices.at(i + 2)).TexCoords;
+
+		vec2 deltaUV1 = uv2 - uv1;
+		vec2 deltaUV2 = uv3 - uv1;
+
+		// calculate tangent and bitangent
+		float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+
+		vec3 tangent = vec3(1);
+		tangent.x = f * (deltaUV2.y * edge1.x - deltaUV1.y*edge2.x);
+		tangent.y = f * (deltaUV2.y * edge1.y - deltaUV1.y*edge2.y);
+		tangent.z = f * (deltaUV2.y * edge1.z - deltaUV1.y*edge2.z);
+		tangent = normalize(tangent);
+
+		// push back tangent
+		tangents.push_back(tangent);
+
+		vec3 bitangent = vec3(1);
+		bitangent.x = f * (deltaUV1.x * edge2.x - deltaUV2.x * edge1.x);
+		bitangent.y = f * (deltaUV1.x * edge2.y - deltaUV2.x * edge1.y);
+		bitangent.z = f * (deltaUV1.x * edge2.z - deltaUV2.x * edge1.z);
+		bitangent = normalize(bitangent);
+
+		// push back bitangent
+		tangents.push_back(bitangent);
+	}
+	
+
 
 	// TODO processing Materials
 	int tmpID = -1;
@@ -194,7 +239,7 @@ mesh* model::processMesh(aiMesh * mesh, const aiScene * scene)
 
 	 
 
-	return new class mesh(vertices, indices, texManager, modelMatID, tmpID, engineLog);
+	return new class mesh(vertices, indices, tangents, texManager, modelMatID, tmpID, engineLog);
 	
 }
 

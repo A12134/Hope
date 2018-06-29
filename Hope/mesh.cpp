@@ -3,12 +3,13 @@
 
 lightManager* mesh::mLightManager = nullptr;
 
-mesh::mesh(vector<Vertex> vertices, vector<unsigned int> indices, textureManager* texManager, int SetID, int matID, LogManager* engineLog)
+mesh::mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<vec3> tangents, textureManager* texManager, int SetID, int matID, LogManager* engineLog)
 {
 	this->engineLog = engineLog;
 
 	this->vertices = vertices;
 	this->indices = indices;
+	this->tangents = tangents;
 	this->texManager = texManager;
 
 	this->setID = SetID;
@@ -94,6 +95,17 @@ void mesh::setupMesh()
 	
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 	glEnableVertexAttribArray(2);
+
+	// TODO fix the incorrect data transfer
+	glBufferData(GL_ARRAY_BUFFER, tangents.size() * sizeof(vec3), &tangents.front(), GL_STATIC_DRAW);
+	
+	// passing in tangent
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), (void*)0);
+	glEnableVertexAttribArray(3);
+	
+	// passing in bitangent
+	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), (void*)sizeof(vec3));
+	glEnableVertexAttribArray(4);
 
 	glBindVertexArray(0);
 }
