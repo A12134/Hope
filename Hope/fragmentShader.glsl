@@ -31,11 +31,15 @@ struct SpotLight
 out vec4 FragColor;
 
 in vec3 FragPos;
-in vec3 n;
+in vec3 ourColor;
 in vec2 TexCoord;
+in vec3 n;
+in vec3 T;
+in vec3 B;
 in mat3 TBN;
+//in vec3 normal;
+//in vec3 FragPos;
 in mat4 models;
-
 uniform vec3 viewPos;
 
 uniform sampler2D Normal_0;
@@ -55,7 +59,7 @@ uniform sampler2D Specular_3;
 
 uniform DirectionalLight light;
 
-vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)
+vec4 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)
 {
 	vec3 lightDir = normalize(-light.direction);
 
@@ -63,12 +67,12 @@ vec3 CalcDirLight(DirectionalLight light, vec3 normal, vec3 viewDir)
 
 	vec3 h = normalize(lightDir + viewDir);
 	vec3 reflectDir = reflect(-lightDir, normal);
-	float spec = pow(max(dot(normal, h), 0.0f), 32.0f);
-	vec3 diffuseMap =  (vec3(texture(Diffuse_0, TexCoord)) + vec3(texture(Diffuse_1, TexCoord)) + vec3(texture(Diffuse_2, TexCoord)) + vec3(texture(Diffuse_3, TexCoord)));
-	vec3 ambient = light.ambient * diffuseMap;
-	vec3 diffuse = light.diffuse * diff * diffuseMap;
-	vec3 specularMap = (vec3(texture(Specular_0, TexCoord))+vec3(texture(Specular_1, TexCoord))+vec3(texture(Specular_2, TexCoord))+vec3(texture(Specular_3, TexCoord)));
-	vec3 specular = light.specular * spec * specularMap;
+	float spec = pow(max(dot(normal, h), 0.0f), 64.0f);
+	vec4 diffuseMap =  texture(Diffuse_0, TexCoord) + texture(Diffuse_1, TexCoord) + texture(Diffuse_2, TexCoord) + texture(Diffuse_3, TexCoord);
+	vec4 ambient = vec4(light.ambient,1.0) * diffuseMap;
+	vec4 diffuse = vec4(light.diffuse,1.0) * diff * diffuseMap;
+	vec4 specularMap = texture(Specular_0, TexCoord)+texture(Specular_1, TexCoord)+texture(Specular_2, TexCoord)+texture(Specular_3, TexCoord);
+	vec4 specular = vec4(light.specular,1.0) * spec * specularMap;
 
 	//return (max(dot(normal, lightDir), 0.0f));
 	return(ambient + diffuse + specular);
@@ -83,8 +87,14 @@ void main()
 	//normal = mat3(transpose(inverse(models)))*normal;
 	//norm.y = -norm.y;
 	vec3 viewDir = normalize(viewPos - FragPos);
+	vec3 norm = n;
+	//if (dot(vec3(0,0,norm.z), -viewDir) < 0.0)
+	//{
+	//	norm.z = norm.z*-1.0;
+		//norm.x = norm.x*-1.0;
+	//}
 	//float x = CalcDirLight(light, normal, viewDir);
-	FragColor = vec4(CalcDirLight(light, normal, viewDir), 1.0f );
+	FragColor = CalcDirLight(light, normal, viewDir);
 	//FragColor = vec4(x,x,x,1.0f);
-	//FragColor = vec4(normal, 1.0);
+	//FragColor = vec4(n*0.5+0.5, 1.0);
 }

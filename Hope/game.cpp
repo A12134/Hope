@@ -15,7 +15,7 @@ void game::init()
 	initCam();
 	initModel();
 
-	lm->addNewDirectionalLight(glm::vec3(0.0f, 0.0f, -1.0f), COLOR_WHITE*0.1f, COLOR_WHITE, glm::vec3(1.0f, 0.9854f, 0.984f));
+	lm->addNewDirectionalLight(glm::vec3(0.0f, -1.0f, -1.0f), COLOR_YELLOW*0.1f, COLOR_WHITE*0.3f, glm::vec3(1.0f, 0.9854f, 0.984f));
 
 	currentState = EGameState::E_START;
 }
@@ -41,7 +41,7 @@ void game::initCam()
 		1024.0f,							// width
 		800.0f,								// height
 		0.1f,								// near plane
-		100.0f								// far plane
+		1000.0f								// far plane
 		 );
 }
 
@@ -55,7 +55,7 @@ void game::initModel()
 	transform.scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	
 	model * nano = new model(mTextureManager, "NanoSuitMat", engineLog);
-	nano->addNewLevelLOD("assets//nanosuit.obj", 1000);
+	nano->addNewLevelLOD("assets//Lamborghini_Aventador.obj", 1000);
 	
 	testModel = new nanoSuit(transform, mShaderManager->getShader("NanoSuitShader"), nano, engineLog);
 }

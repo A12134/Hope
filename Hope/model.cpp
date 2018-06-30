@@ -55,7 +55,7 @@ void model::addNewLevelLOD(const char * filePath, float maximumDistance)
 void model::loadModel(std::string path)
 {
 	Assimp::Importer import;
-	const aiScene * scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	const aiScene * scene = import.ReadFile(path, aiProcess_JoinIdenticalVertices | aiProcess_FindDegenerates | aiProcess_FindInvalidData | aiProcess_TransformUVCoords | aiProcess_Triangulate | aiProcess_CalcTangentSpace | aiProcess_FlipUVs | aiProcess_GenSmoothNormals);
 	
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
