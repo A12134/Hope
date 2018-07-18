@@ -1,3 +1,6 @@
+#### This project is abandoned, The redone version of this Project is transfered to: 
+#### https://github.com/A12134/OpenGL-Engine-Hope2 
+
 # Hope
 **Custom opengl game engine**  
 ### Used Library:  
