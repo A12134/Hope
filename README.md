@@ -10,3 +10,5 @@
 [STB_IMAGE](https://github.com/nothings/stb/blob/master/stb_image.h) - image importing library  
 [ASSIMP](https://github.com/assimp/assimp/releases/tag/v4.0.1/)    - 3D model import library  
 
+currently engine effect with directional light:
+![alt text](https://github.com/A12134/Hope/blob/master/screenShot.png)
